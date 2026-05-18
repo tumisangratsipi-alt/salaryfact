@@ -2,25 +2,25 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Net Worth Percentile Calculator — Where Do You Rank?",
+  title: "Salary Percentile Calculator — Where Does Your Pay Rank?",
   description:
-    "Find out where your net worth ranks among Americans your age. Uses Federal Reserve 2022 Survey of Consumer Finances data. Free, no sign-up.",
-  metadataBase: new URL("https://networthrank.com"),
+    "Find out what percentile your salary is in nationally and by state. See how your pay compares to the median. All 50 states. Free, no sign-up.",
+  metadataBase: new URL("https://salaryfact.com"),
   openGraph: {
-    title: "Net Worth Percentile Calculator",
+    title: "Salary Percentile Calculator",
     description:
-      "See where your net worth ranks among Americans your age. Federal Reserve data.",
-    url: "https://networthrank.com",
-    siteName: "networthrank.com",
+      "Find out what percentile your salary is in nationally and by state. BLS 2024 data.",
+    url: "https://salaryfact.com",
+    siteName: "salaryfact.com",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Net Worth Percentile Calculator",
-    description: "See where your net worth ranks among Americans your age.",
+    title: "Salary Percentile Calculator",
+    description: "See where your salary ranks nationally and by state. Free, no sign-up.",
   },
   alternates: {
-    canonical: "https://networthrank.com",
+    canonical: "https://salaryfact.com",
   },
 };
 

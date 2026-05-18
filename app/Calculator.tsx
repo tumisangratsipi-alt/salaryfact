@@ -2,60 +2,77 @@
 
 import { useState } from "react";
 import {
-  getPercentile,
-  getTopPercent,
-  getDiffFromMedian,
+  calculateSalary,
   formatCurrency,
+  STATE_NAMES,
+  JOB_CATEGORIES,
   NATIONAL_MEDIAN,
-  AGE_BRACKET_LABELS,
-  type AgeBracket,
-} from "@/lib/scf-data";
+  type SalaryResult,
+  type JobCategoryKey,
+} from "@/lib/salary-data";
 
-interface Result {
-  percentile: number;
-  topPercent: number;
-  bracket: AgeBracket;
-  bracketLabel: string;
-  netWorth: number;
-  median: number;
-  diffAmount: number;
-  diffDirection: "ahead" | "behind";
+function DiffBadge({ amount }: { amount: number }) {
+  const isPos = amount >= 0;
+  return (
+    <span
+      className="font-bold font-mono text-sm"
+      style={{ color: isPos ? "var(--emerald-500)" : "var(--rose-500)" }}
+    >
+      {isPos ? "+" : ""}{formatCurrency(amount)}&nbsp;{isPos ? "above" : "below"}
+    </span>
+  );
 }
 
 function PercentileBar({ percentile }: { percentile: number }) {
+  // Quartile markers at 25, 50, 75
   return (
     <div className="mt-5">
       <div className="flex justify-between mb-2">
-        <span className="terminal-label">Bottom</span>
+        <span className="terminal-label">0th</span>
         <span className="terminal-label" style={{ color: "var(--amber-500)" }}>
           {percentile}th percentile
         </span>
-        <span className="terminal-label">Top</span>
+        <span className="terminal-label">99th</span>
       </div>
       <div
-        className="relative h-2.5 rounded-full overflow-hidden"
+        className="relative h-3 rounded-full overflow-visible"
         style={{ background: "rgba(255,255,255,0.06)" }}
       >
+        {/* Filled bar */}
         <div
           className="h-full rounded-full transition-all duration-700"
           style={{
             width: `${percentile}%`,
-            background: "linear-gradient(90deg, var(--amber-600) 0%, var(--amber-400) 100%)",
+            background: "linear-gradient(90deg, #7C3AED 0%, #A78BFA 100%)",
           }}
         />
+        {/* Position marker */}
         <div
-          className="absolute top-0 h-full w-px -translate-x-1/2 opacity-80"
-          style={{ left: `${percentile}%`, background: "#fff" }}
+          className="absolute top-0 h-full w-0.5 -translate-x-1/2"
+          style={{ left: `${percentile}%`, background: "#ffffff", opacity: 0.9 }}
         />
+        {/* Quartile ticks */}
+        {[25, 50, 75].map((q) => (
+          <div
+            key={q}
+            className="absolute top-0 h-full w-px opacity-30"
+            style={{ left: `${q}%`, background: "rgba(255,255,255,0.4)" }}
+          />
+        ))}
+      </div>
+      <div className="flex justify-between mt-1">
+        <span className="terminal-label" style={{ opacity: 0.4 }}>25th</span>
+        <span className="terminal-label" style={{ opacity: 0.4 }}>50th</span>
+        <span className="terminal-label" style={{ opacity: 0.4 }}>75th</span>
       </div>
     </div>
   );
 }
 
-function ShareButtons({ result }: { result: Result }) {
+function ShareButtons({ result, salary }: { result: SalaryResult; salary: number }) {
   const [copied, setCopied] = useState(false);
 
-  const shareText = `My net worth puts me in the top ${result.topPercent}% of Americans ages ${result.bracketLabel}. Calculated at networthrank.com`;
+  const shareText = `My ${formatCurrency(salary)} salary ranks in the ${result.nationalPercentile}th percentile nationally (${result.percentileLabel}). Checked at salaryfact.com`;
 
   const copyResult = async () => {
     try {
@@ -68,15 +85,12 @@ function ShareButtons({ result }: { result: Result }) {
   };
 
   const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-    "https://networthrank.com"
+    "https://salaryfact.com"
   )}&summary=${encodeURIComponent(shareText)}`;
 
   return (
     <div className="flex gap-3 mt-6">
-      <button
-        onClick={copyResult}
-        className="btn-orbital flex-1 text-sm py-2.5"
-      >
+      <button onClick={copyResult} className="btn-orbital flex-1 text-sm py-2.5">
         {copied ? "Copied!" : "Copy result"}
       </button>
       <a
@@ -92,93 +106,91 @@ function ShareButtons({ result }: { result: Result }) {
   );
 }
 
-function ResultCard({ result }: { result: Result }) {
-  const isAhead = result.diffDirection === "ahead";
-  const tone =
-    result.percentile >= 75
-      ? "You are well ahead of most Americans your age."
-      : result.percentile >= 50
-      ? "You are above the median for your age group."
-      : result.percentile >= 25
-      ? "You are close to the national median for your age."
-      : "Building net worth takes time. Here is what moves the needle most.";
-
+function ResultCard({ result, salary }: { result: SalaryResult; salary: number }) {
   return (
     <div className="gradient-border-result rounded-xl p-6 mt-8">
-      <p className="terminal-label mb-4">Your rank</p>
+      <p className="terminal-label mb-4">Your salary rank</p>
 
+      {/* Big percentile number */}
       <div className="text-center my-6">
         <p className="text-sm mb-1" style={{ color: "var(--text-muted)" }}>
-          You are in the
+          You rank in the
         </p>
         <p
           className="text-gradient-1 font-black leading-none glow-amber"
           style={{ fontSize: "clamp(56px, 14vw, 96px)" }}
         >
-          TOP {result.topPercent}%
+          {result.nationalPercentile}th
         </p>
-        <p className="mt-2 font-semibold" style={{ color: "var(--text-secondary)" }}>
-          of Americans ages {result.bracketLabel}
+        <p className="mt-1 text-base font-semibold" style={{ color: "var(--text-secondary)" }}>
+          Percentile nationally
         </p>
-      </div>
-
-      <PercentileBar percentile={result.percentile} />
-
-      {/* Comparison grid */}
-      <div className="holo-panel p-4 mt-6 space-y-2">
-        <div className="flex justify-between items-center">
-          <span className="terminal-label">Median, ages {result.bracketLabel}</span>
-          <span className="tabular-gold text-sm">{formatCurrency(result.median)}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="terminal-label">Your net worth</span>
-          <span className="tabular-gold text-sm">{formatCurrency(result.netWorth)}</span>
-        </div>
-        <div
-          className="flex justify-between items-center pt-2 mt-1"
-          style={{ borderTop: "1px solid var(--border-subtle)" }}
-        >
-          <span className="terminal-label">vs. median</span>
-          <span
-            className="font-bold font-mono text-sm"
-            style={{ color: isAhead ? "var(--emerald-500)" : "var(--rose-500)" }}
-          >
-            {isAhead ? "+" : "-"}{formatCurrency(result.diffAmount)}&nbsp;
-            {isAhead ? "ahead" : "behind"}
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full"
+          style={{ background: "rgba(167,139,250,0.12)", border: "1px solid rgba(167,139,250,0.25)" }}>
+          <span className="text-xs font-bold" style={{ color: "#A78BFA" }}>
+            {result.percentileLabel}
           </span>
         </div>
       </div>
 
-      <p className="text-sm mt-4" style={{ color: "var(--text-muted)" }}>
-        {tone}
+      <PercentileBar percentile={result.nationalPercentile} />
+
+      {/* Comparison grid */}
+      <div className="holo-panel p-4 mt-6 space-y-3">
+        <div className="flex justify-between items-center">
+          <span className="terminal-label">Your salary</span>
+          <span className="tabular-gold text-sm">{formatCurrency(salary)}</span>
+        </div>
+        <div
+          className="flex justify-between items-center pt-2"
+          style={{ borderTop: "1px solid var(--border-subtle)" }}
+        >
+          <span className="terminal-label">vs. national median ({formatCurrency(NATIONAL_MEDIAN)})</span>
+          <DiffBadge amount={result.vsNationalMedian} />
+        </div>
+        <div
+          className="flex justify-between items-center pt-2"
+          style={{ borderTop: "1px solid var(--border-subtle)" }}
+        >
+          <span className="terminal-label">vs. {result.stateName} median</span>
+          <DiffBadge amount={result.vsStateMedian} />
+        </div>
+        <div
+          className="flex justify-between items-center pt-2"
+          style={{ borderTop: "1px solid var(--border-subtle)" }}
+        >
+          <span className="terminal-label">vs. {result.jobCategoryLabel} median ({formatCurrency(result.jobMedian)})</span>
+          <DiffBadge amount={result.vsJobMedian} />
+        </div>
+      </div>
+
+      {/* State percentile card */}
+      <div className="mt-4 p-3 rounded-lg flex justify-between items-center"
+        style={{ background: "rgba(167,139,250,0.06)", border: "1px solid rgba(167,139,250,0.15)" }}>
+        <span className="terminal-label">Percentile in {result.stateName}</span>
+        <span className="font-bold font-mono text-sm" style={{ color: "#A78BFA" }}>
+          {result.statePercentile}th
+        </span>
+      </div>
+
+      {/* Insight */}
+      <p className="text-sm mt-4 leading-relaxed" style={{ color: "var(--text-muted)" }}>
+        {result.insight}
       </p>
 
-      <ShareButtons result={result} />
+      <ShareButtons result={result} salary={salary} />
 
       {/* CTAs */}
       <div className="mt-6 space-y-3">
         <a
-          href="https://calcmoney.io/calculators/net-worth"
+          href="https://calcmoney.io"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-orbital block w-full text-center py-3"
           style={{ textDecoration: "none" }}
         >
-          Full financial breakdown at CalcMoney &rarr;
-        </a>
-        <a
-          href="https://www.empower.com/personal-wealth"
-          target="_blank"
-          rel="noopener noreferrer sponsored"
-          className="block w-full text-center py-3 px-4 rounded-md text-sm transition-opacity hover:opacity-70"
-          style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid var(--border-default)",
-            color: "var(--text-muted)",
-            textDecoration: "none",
-          }}
-        >
-          Track your net worth automatically &mdash; Empower is free &rarr;
+          More financial tools at CalcMoney &rarr;
         </a>
       </div>
     </div>
@@ -186,28 +198,30 @@ function ResultCard({ result }: { result: Result }) {
 }
 
 export default function Calculator() {
-  const [netWorthInput, setNetWorthInput] = useState("");
-  const [bracket, setBracket] = useState<AgeBracket | "">("");
-  const [result, setResult] = useState<Result | null>(null);
+  const [salaryInput, setSalaryInput] = useState("");
+  const [stateCode, setStateCode] = useState("");
+  const [jobCategory, setJobCategory] = useState<JobCategoryKey | "">("");
+  const [result, setResult] = useState<{ data: SalaryResult; salary: number } | null>(null);
   const [error, setError] = useState("");
 
   const handleCalculate = () => {
     setError("");
-    const raw = netWorthInput.replace(/[$,\s]/g, "");
-    const nw = parseFloat(raw);
-    if (isNaN(nw)) {
-      setError("Enter a valid net worth amount — e.g. 250000 or -15000.");
+    const raw = salaryInput.replace(/[$,\s]/g, "");
+    const sal = parseFloat(raw);
+    if (isNaN(sal) || sal < 0) {
+      setError("Enter a valid annual salary, e.g. 75000.");
       return;
     }
-    if (!bracket) {
-      setError("Select your age bracket.");
+    if (!stateCode) {
+      setError("Select your state.");
       return;
     }
-    const percentile = getPercentile(nw, bracket);
-    const topPercent = getTopPercent(percentile);
-    const { amount: diffAmount, direction: diffDirection } = getDiffFromMedian(nw, bracket);
-    const median = NATIONAL_MEDIAN[bracket];
-    setResult({ percentile, topPercent, bracket, bracketLabel: AGE_BRACKET_LABELS[bracket], netWorth: nw, median, diffAmount, diffDirection });
+    if (!jobCategory) {
+      setError("Select a job category.");
+      return;
+    }
+    const data = calculateSalary(sal, stateCode, jobCategory);
+    setResult({ data, salary: sal });
     setTimeout(() => {
       document.getElementById("result")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
@@ -224,14 +238,14 @@ export default function Calculator() {
         <div className="space-y-5">
           <div>
             <label className="terminal-label block mb-2">
-              Net worth (assets minus debts)
+              Annual salary (before taxes)
             </label>
             <input
               type="text"
               inputMode="numeric"
-              placeholder="250000"
-              value={netWorthInput}
-              onChange={(e) => setNetWorthInput(e.target.value)}
+              placeholder="75000"
+              value={salaryInput}
+              onChange={(e) => setSalaryInput(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
               className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
@@ -242,15 +256,15 @@ export default function Calculator() {
               }}
             />
             <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
-              Total assets (home equity, investments, retirement, savings) minus total debts (mortgage, loans, credit cards). Negative values are fine.
+              Enter your gross annual salary (pre-tax). Hourly workers: multiply hourly rate by 2,080.
             </p>
           </div>
 
           <div>
-            <label className="terminal-label block mb-2">Age bracket</label>
+            <label className="terminal-label block mb-2">Job category</label>
             <select
-              value={bracket}
-              onChange={(e) => setBracket(e.target.value as AgeBracket | "")}
+              value={jobCategory}
+              onChange={(e) => setJobCategory(e.target.value as JobCategoryKey | "")}
               className="w-full rounded-md px-4 py-3 text-base transition-colors"
               style={{
                 background: "rgba(255,255,255,0.04)",
@@ -258,16 +272,33 @@ export default function Calculator() {
                 color: "var(--text-primary)",
               }}
             >
-              <option value="" style={{ background: "#16181F" }}>
-                Select your age
-              </option>
-              {(Object.entries(AGE_BRACKET_LABELS) as [AgeBracket, string][]).map(
-                ([key, label]) => (
-                  <option key={key} value={key} style={{ background: "#16181F" }}>
-                    {label}
-                  </option>
-                )
-              )}
+              <option value="" style={{ background: "#16181F" }}>Select your field</option>
+              {Object.entries(JOB_CATEGORIES).map(([key, { label }]) => (
+                <option key={key} value={key} style={{ background: "#16181F" }}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="terminal-label block mb-2">State</label>
+            <select
+              value={stateCode}
+              onChange={(e) => setStateCode(e.target.value)}
+              className="w-full rounded-md px-4 py-3 text-base transition-colors"
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid var(--border-default)",
+                color: "var(--text-primary)",
+              }}
+            >
+              <option value="" style={{ background: "#16181F" }}>Select your state</option>
+              {Object.entries(STATE_NAMES).map(([code, name]) => (
+                <option key={code} value={code} style={{ background: "#16181F" }}>
+                  {name}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -278,14 +309,14 @@ export default function Calculator() {
           )}
 
           <button className="btn-primary-gold" onClick={handleCalculate}>
-            Calculate My Rank
+            Calculate My Percentile
           </button>
         </div>
       </div>
 
       {/* Result */}
       <div id="result">
-        {result && <ResultCard result={result} />}
+        {result && <ResultCard result={result.data} salary={result.salary} />}
       </div>
     </div>
   );

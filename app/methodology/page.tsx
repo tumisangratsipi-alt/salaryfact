@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Methodology — Net Worth Percentile Calculator",
+  title: "Methodology — Salary Percentile Calculator",
   description:
-    "How we calculate net worth percentiles. Data source, interpolation method, and limitations.",
+    "How we calculate salary percentiles. Data source (BLS OEWS 2024), interpolation method, state adjustments, and limitations.",
   alternates: {
-    canonical: "https://networthrank.com/methodology",
+    canonical: "https://salaryfact.com/methodology",
   },
 };
 
@@ -26,12 +26,12 @@ export default function MethodologyPage() {
           <Link
             href="/"
             className="font-bold text-lg tracking-tight"
-            style={{ color: "var(--text)", textDecoration: "none" }}
+            style={{ color: "var(--text-primary)", textDecoration: "none" }}
           >
-            <span className="text-gradient-1">networth</span>rank.com
+            <span className="text-gradient-1">salary</span>fact.com
           </Link>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-            Data: Federal Reserve 2022 SCF
+            Data: BLS OEWS 2024
           </span>
         </div>
       </header>
@@ -53,78 +53,98 @@ export default function MethodologyPage() {
         <div className="space-y-8 text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)" }}>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text-primary)" }}>
               Data source
             </h2>
             <p>
-              All percentile benchmarks are derived from the{" "}
+              All national percentile benchmarks are derived from the{" "}
               <a
-                href="https://www.federalreserve.gov/econres/scfindex.htm"
+                href="https://www.bls.gov/oes/"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--amber-500)", textDecoration: "none" }}
               >
-                Federal Reserve 2022 Survey of Consumer Finances (SCF)
+                Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS)
               </a>
-              , published October 2023.
+              {" "}2024 release.
             </p>
             <p className="mt-3">
-              The SCF is conducted every three years by the Federal Reserve Board. It is
-              the most comprehensive source of US household wealth data available,
-              surveying over 4,500 households with deliberate oversampling of high-wealth
-              households to ensure accuracy at the top of the distribution.
+              The OEWS program produces employment and wage estimates for over 800 occupations
+              across the United States. It surveys approximately 1.1 million business establishments
+              and is the most comprehensive source of occupational wage data available for the US
+              workforce. State median figures are derived from BLS state-level OEWS estimates.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)" }}>
-              Percentile calculation
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text-primary)" }}>
+              National percentile calculation
             </h2>
             <p>
-              We use key percentile breakpoints from the 2022 SCF (10th, 25th, 50th,
-              75th, 90th, 95th, 99th) for each age bracket. For net worth values between
-              these breakpoints, we apply linear interpolation to estimate the percentile.
+              We use key percentile breakpoints from the 2024 BLS OEWS data (10th, 20th, 25th,
+              30th, 40th, 50th, 60th, 70th, 75th, 80th, 90th, 95th, 99th) for the full national
+              workforce. For salary values between these breakpoints, we apply linear interpolation
+              to estimate the percentile.
             </p>
             <p className="mt-3">
-              For example: if the 50th percentile for ages 35-44 is $135,000 and the 75th
-              percentile is $385,000, a net worth of $260,000 would be approximately at the
-              62nd percentile (halfway between 50 and 75 on a linear scale).
-            </p>
-            <p className="mt-3">
-              This method produces accurate estimates near the known breakpoints and
-              approximations between them. Results are rounded to the nearest whole
-              percentile.
+              For example: if the 50th percentile is $59,000 and the 60th percentile is $72,000,
+              a salary of $65,500 would be approximately at the 55th percentile (halfway on a
+              linear scale). Results are rounded to the nearest whole percentile.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)" }}>
-              Age brackets
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text-primary)" }}>
+              State percentile adjustment
             </h2>
             <p>
-              The SCF groups household wealth by age of the household head: Under 35,
-              35-44, 45-54, 55-64, 65-74, and 75 and older. This calculator uses the same
-              groupings. If your household has two earners, use the age of the primary
-              earner or financial decision-maker.
+              To calculate your state percentile, we scale your salary by the ratio of the
+              national median to your state median before applying the national percentile curve.
+              This captures the effect of regional wage levels: the same salary ranks higher
+              in a low-wage state and lower in a high-wage state.
+            </p>
+            <p className="mt-3">
+              State medians are sourced from BLS state-level OEWS 2024 data covering all
+              50 states and Washington D.C.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)" }}>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text-primary)" }}>
+              Job category medians
+            </h2>
+            <p>
+              The job category median shown in the comparison grid is the approximate BLS
+              OEWS 2024 median for that broad occupational group. This gives context for
+              how your salary compares within your field, separate from the national and
+              state percentile calculations. The national percentile is always calculated
+              against the full workforce distribution.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text-primary)" }}>
               Limitations
             </h2>
             <ul className="space-y-2 list-disc list-inside">
               <li>
-                SCF data is collected every three years. The 2022 data reflects conditions
-                as of early 2022, before the full impact of 2022-2023 interest rate changes.
+                This calculator does not adjust for cost of living. A $70,000 salary in
+                San Francisco buys far less than $70,000 in rural Tennessee, but the
+                percentile reflects wage distribution only, not purchasing power.
               </li>
               <li>
-                Percentiles represent household net worth, not individual net worth. For
-                couples, total household assets and debts should be combined.
+                The data covers wage and salary workers. Self-employment income and
+                business income are not fully captured in BLS OEWS figures.
               </li>
               <li>
-                Very high net worth values (above the 99th percentile) use the top known
-                breakpoint as a ceiling; actual percentiles for extreme values may differ.
+                Part-time workers are included in the BLS data and pull down the lower
+                percentiles. If you work part-time, your full-time-equivalent salary
+                will rank higher than the raw figures suggest.
+              </li>
+              <li>
+                Salaries above the 99th percentile ($350,000+) use the top breakpoint
+                as a ceiling. The calculator returns 99 for any salary at or above
+                this threshold.
               </li>
               <li>
                 This tool does not store any data you enter. All calculations happen
@@ -134,20 +154,25 @@ export default function MethodologyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)" }}>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text-primary)" }}>
               Not financial advice
             </h2>
             <p>
-              This calculator provides context for understanding your net worth relative to
-              US households. It does not constitute financial advice, investment advice, or
-              any recommendation to take or refrain from taking any action. Consult a
-              licensed financial advisor for personalized guidance.
+              This calculator provides context for understanding your salary relative to
+              US workers. It does not constitute financial advice, career advice, or any
+              recommendation to take or refrain from any action. Salary negotiation and
+              career decisions should be informed by multiple data sources and your
+              specific circumstances.
             </p>
           </section>
         </div>
 
         <div className="mt-12">
-          <Link href="/" className="btn-primary" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>
+          <Link
+            href="/"
+            className="btn-primary-gold"
+            style={{ display: "block", textAlign: "center", textDecoration: "none" }}
+          >
             Back to calculator
           </Link>
         </div>
@@ -160,7 +185,7 @@ export default function MethodologyPage() {
       >
         <div className="max-w-2xl mx-auto px-4 py-8 text-sm" style={{ color: "var(--text-muted)" }}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <p>Data: 2022 Federal Reserve Survey of Consumer Finances.</p>
+            <p>Data: BLS OEWS 2024.</p>
             <p>
               More tools at{" "}
               <a
@@ -169,7 +194,7 @@ export default function MethodologyPage() {
                 rel="noopener noreferrer"
                 style={{ color: "var(--amber-500)", textDecoration: "none" }}
               >
-                CalcMoney.io
+                calcmoney.io
               </a>
             </p>
           </div>

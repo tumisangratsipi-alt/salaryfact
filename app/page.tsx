@@ -1,38 +1,31 @@
 import Calculator from "./Calculator";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Net Worth Percentile Calculator — Where Do You Rank?",
-  description:
-    "Find out where your net worth ranks among Americans your age. Uses Federal Reserve 2022 Survey of Consumer Finances data. Free, no sign-up.",
-};
 
 const faqItems = [
   {
-    q: "What counts as net worth?",
-    a: "Net worth is the total value of everything you own minus everything you owe. Assets include your home equity (market value minus mortgage balance), investment accounts, retirement accounts (401k, IRA), savings, and any other valuables. Debts include your mortgage balance, student loans, auto loans, credit card balances, and other liabilities. Negative net worth is common, especially for people under 35 still paying down student debt.",
+    q: "What percentile is a good salary?",
+    a: "Any salary above the 50th percentile means you earn more than half of US workers. The national median is approximately $59,000 as of 2024 BLS data. The 75th percentile (roughly $97K) puts you in the top quarter nationally, which most financial planners consider a strong income. The top 10% starts around $145,000, and the top 1% is approximately $350,000 or more.",
   },
   {
-    q: "Where does this data come from?",
-    a: "All percentile data is sourced from the Federal Reserve 2022 Survey of Consumer Finances (SCF), published October 2023. The SCF is the gold standard for US household wealth data, conducted every three years by the Federal Reserve. It surveys over 4,500 households and oversamples high-wealth households for accuracy at the top of the distribution.",
+    q: "What is the median salary in the United States?",
+    a: "The median annual wage in the United States is approximately $59,000 as of 2024, according to Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS) data. This means half of all American workers earn below this figure and half earn above it. The mean (average) is higher, around $65,000, because high earners pull it up.",
   },
   {
-    q: "What is a good net worth at my age?",
-    a: "There is no universal benchmark, but the Federal Reserve SCF gives context. The median American household net worth is $192,700 across all ages (2022). At age 35-44, the median is $135,000. At 45-54, it's $248,000. By 65-74, it's $410,000. A net worth above the 75th percentile for your age group means you are ahead of three-quarters of Americans your age.",
+    q: "How does location affect salary percentile?",
+    a: "Location has a significant effect on where your salary ranks. States with higher costs of living — California, New York, Washington, Massachusetts — have higher median wages, so the same dollar amount ranks lower percentile-wise than in lower-cost states. Washington D.C. has the highest median at roughly $85,000. Mississippi has the lowest at around $43,000. This calculator adjusts your state percentile based on the state median, giving you a meaningful local comparison.",
   },
   {
-    q: "Why does age matter for net worth comparisons?",
-    a: "Net worth compounds over time. A 28-year-old with $50,000 and a 60-year-old with $50,000 are in completely different situations. Comparing yourself to your age group gives a much more meaningful picture than a flat national average, which is skewed heavily by older, higher-wealth households.",
+    q: "Why does my field matter for salary comparison?",
+    a: "Occupational medians vary enormously. The median for Technology and Software workers is around $105,000, while Hospitality and Food Service sits near $35,000. A salary of $80,000 in tech puts you below the field median; the same salary in Education places you well above it. Comparing yourself only to the national average without field context gives an incomplete picture of where you actually stand.",
   },
 ];
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Net Worth Percentile Calculator",
-  url: "https://networthrank.com",
+  name: "Salary Percentile Calculator",
+  url: "https://salaryfact.com",
   description:
-    "Calculate where your net worth ranks among Americans your age using Federal Reserve 2022 SCF data.",
+    "Find out what percentile your salary is in nationally and by state. BLS 2024 data. All 50 states.",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
   offers: {
@@ -82,10 +75,10 @@ export default function Home() {
             className="font-bold text-lg tracking-tight"
             style={{ color: "var(--text-primary)", textDecoration: "none" }}
           >
-            <span className="text-gradient-1">networth</span>rank.com
+            <span className="text-gradient-1">salary</span>fact.com
           </a>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-            Data: Federal Reserve 2022 SCF
+            Data: BLS OEWS 2024
           </span>
         </div>
       </header>
@@ -97,18 +90,17 @@ export default function Home() {
             className="font-black mb-3 leading-tight"
             style={{ fontSize: "clamp(28px, 6vw, 42px)" }}
           >
-            Net Worth Percentile
+            Salary Percentile
             <br />
             <span className="text-gradient-1">Calculator</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-lg mx-auto" style={{ color: "var(--text-muted)" }}>
-            Enter your net worth and age. See exactly where you rank among
-            Americans your age using{" "}
+            Enter your salary and see where you rank nationally, by state, and in your field.{" "}
             <a
               href="/methodology"
               style={{ color: "var(--amber-500)", textDecoration: "none" }}
             >
-              Federal Reserve data
+              BLS 2024 data
             </a>
             .
           </p>
@@ -155,7 +147,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto px-4 py-8 text-sm" style={{ color: "var(--text-muted)" }}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p>
-              Data: 2022 Federal Reserve Survey of Consumer Finances.{" "}
+              Data: BLS OEWS 2024.{" "}
               <a href="/methodology" style={{ color: "var(--amber-500)", textDecoration: "none" }}>
                 Methodology &rarr;
               </a>
@@ -168,13 +160,13 @@ export default function Home() {
                 rel="noopener noreferrer"
                 style={{ color: "var(--amber-500)", textDecoration: "none" }}
               >
-                CalcMoney.io
+                calcmoney.io
               </a>
             </p>
           </div>
           <p className="mt-3 text-xs">
-            Not financial advice. Net worth percentiles are calculated from household survey data
-            and are estimates. &copy; {new Date().getFullYear()} networthrank.com
+            Not financial advice. Salary percentiles are estimates based on BLS occupational data.
+            &copy; {new Date().getFullYear()} salaryfact.com
           </p>
         </div>
       </footer>
