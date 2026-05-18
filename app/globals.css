@@ -1,23 +1,42 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* ============================================================
+   SATELLITE DESIGN SYSTEM — based on CalcMoney globals.css
+   To build a new satellite site:
+   1. Copy this file
+   2. Find/replace ACCENT values below with the site's color
+   3. Update body::after glow color to match
+   ACCENT COLORS (networthrank = Gold):
+   Primary:   #D4AF37   (amber-500)
+   Light:     #F5C518   (amber-400)
+   Dark:      #B8960C   (amber-600)
+   Glow:      rgba(212, 175, 55, 0.15)
+   ============================================================ */
+
 @theme {
   --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 
-  /* ── Backgrounds ── */
+  /* Backgrounds */
   --color-background: #09090B;
   --color-foreground: #F0F6FC;
   --color-border: rgba(255, 255, 255, 0.08);
   --color-panel: #111318;
   --color-surface: #16181F;
 
-  /* ── Metallic Gold (primary brand) ── */
+  /* Metallic Gold — ACCENT */
   --color-amber-400: #F5C518;
   --color-amber-500: #D4AF37;
   --color-amber-600: #B8960C;
+  --color-amber-700: #9A7D0A;
 
-  /* ── HUD tokens ── */
+  /* Money Green */
+  --color-emerald-400: #4ADE80;
+  --color-emerald-500: #22C55E;
+  --color-emerald-600: #16A34A;
+
+  /* HUD tokens */
   --color-hud-amber: #D4AF37;
   --color-hud-gold: #F5C518;
   --color-hud-glow: rgba(212, 175, 55, 0.15);
@@ -36,17 +55,19 @@
     --void-600: #16181F;
     --void-500: #1C1E27;
 
-    /* Colors — Metallic Gold */
+    /* Colors — Metallic Gold — ACCENT */
     --amber-400: #F5C518;
     --amber-500: #D4AF37;
     --amber-600: #B8960C;
     --amber-700: #9A7D0A;
-    --amber-glow: rgba(212, 175, 55, 0.15);
+    --amber-glow:        rgba(212, 175, 55, 0.15);
     --amber-glow-strong: rgba(212, 175, 55, 0.35);
+    --amber-glow-subtle: rgba(212, 175, 55, 0.06);
 
     /* Colors — Money Green */
     --emerald-400: #4ADE80;
     --emerald-500: #22C55E;
+    --emerald-600: #16A34A;
     --emerald-glow: rgba(22, 197, 94, 0.15);
 
     /* Colors — Rose (negative) */
@@ -78,6 +99,13 @@
     --shadow-glow-md: 0 0 20px rgba(212, 175, 55, 0.12), 0 0 8px rgba(212, 175, 55, 0.06);
     --shadow-inset-panel: inset 0 1px 1px rgba(255, 255, 255, 0.1), inset 0 -1px 1px rgba(212, 175, 55, 0.04), 0 0 50px rgba(0, 0, 0, 0.5);
 
+    /* Z-index scale */
+    --z-base:     0;
+    --z-card:     10;
+    --z-sticky:   100;
+    --z-dropdown: 200;
+    --z-modal:    300;
+
     /* Animation curves */
     --ease-snap:       cubic-bezier(0.2, 0, 0, 1);
     --ease-smooth:     cubic-bezier(0.4, 0, 0.2, 1);
@@ -88,6 +116,7 @@
     --primary: #D4AF37;
     --primary-foreground: #09090B;
     --border: rgba(255, 255, 255, 0.07);
+    --input: rgba(255, 255, 255, 0.06);
     --ring: #D4AF37;
     --muted-foreground: oklch(0.708 0 0);
   }
@@ -111,7 +140,22 @@
   }
 }
 
-/* Ambient glow orbs — barely-there depth */
+@theme inline {
+  --radius-sm:  calc(var(--radius) - 4px);
+  --radius-md:  calc(var(--radius) - 2px);
+  --radius-lg:  var(--radius);
+  --radius-xl:  calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+}
+
+/* Ambient glow orbs */
 body::before,
 body::after {
   content: '';
@@ -124,7 +168,7 @@ body::after {
 body::before {
   top: -10%; left: -5%;
   width: 20vw; height: 20vh;
-  background-color: #D4AF37;
+  background-color: #D4AF37; /* ACCENT */
   opacity: 0.035;
 }
 body::after {
@@ -136,7 +180,12 @@ body::after {
 
 @layer components {
 
-  /* The Premium Holographic Glass Card — same as CalcMoney */
+  /* Holographic Glass Card
+     FIX vs CalcMoney: isolation:isolate + z-index:-1 on pseudo-elements
+     ensures ::after gradient border never covers plain-div content.
+     CalcMoney works without this because ShadCN components set
+     position:relative on their own, pushing them above ::after.
+     Satellites use plain divs — they need explicit stacking. */
   .aura-panel {
     @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl transition-all duration-500 shadow-2xl shadow-black/60 relative overflow-hidden;
     box-shadow: var(--shadow-inset-panel);
@@ -149,10 +198,10 @@ body::after {
     @apply absolute inset-0 rounded-2xl pointer-events-none;
     z-index: -1;
     background: linear-gradient(135deg,
-        rgba(212, 175, 55, 0.06) 0%,
+        rgba(212, 175, 55, 0.06) 0%,   /* ACCENT glow */
         transparent 40%,
         transparent 60%,
-        rgba(212, 175, 55, 0.03) 100%);
+        rgba(212, 175, 55, 0.03) 100%); /* ACCENT glow */
   }
 
   .aura-panel::after {
@@ -164,40 +213,45 @@ body::after {
     background:
       linear-gradient(#09090B, #09090B) padding-box,
       linear-gradient(135deg,
-        rgba(212, 175, 55, 0.35) 0%,
+        rgba(212, 175, 55, 0.35) 0%,   /* ACCENT border */
         transparent 30%,
         transparent 70%,
-        rgba(212, 175, 55, 0.15) 100%) border-box;
+        rgba(212, 175, 55, 0.15) 100%) border-box; /* ACCENT border */
   }
 
   .aura-panel:hover {
     @apply bg-white/[0.06] -translate-y-0.5;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.15),
+      inset 0 -1px 1px rgba(212, 175, 55, 0.08),
+      0 0 60px rgba(212, 175, 55, 0.06),
+      0 20px 60px rgba(0, 0, 0, 0.5);
   }
 
   /* Holographic data panel — result output areas */
   .holo-panel {
     @apply relative rounded-xl overflow-hidden;
     background: linear-gradient(180deg, rgba(10, 10, 20, 0.95) 0%, rgba(9, 11, 20, 0.98) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.15); /* ACCENT */
     box-shadow:
       0 0 0 1px rgba(255, 255, 255, 0.03),
-      inset 0 1px 0 rgba(212, 175, 55, 0.1),
+      inset 0 1px 0 rgba(212, 175, 55, 0.1),    /* ACCENT */
       0 20px 60px rgba(0, 0, 0, 0.6),
-      0 0 100px rgba(212, 175, 55, 0.04);
+      0 0 100px rgba(212, 175, 55, 0.04);        /* ACCENT */
   }
 }
 
 @layer utilities {
-  /* Gradient text — same as CalcMoney */
+  /* Gradient text */
   .text-gradient-1 {
-    background: linear-gradient(135deg, #D4AF37 0%, #F5C518 40%, #ffffff 100%);
+    background: linear-gradient(135deg, #D4AF37 0%, #F5C518 40%, #ffffff 100%); /* ACCENT */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .text-gradient-gold {
-    background: linear-gradient(135deg, #9A7D0A 0%, #D4AF37 45%, #F5C518 100%);
+    background: linear-gradient(135deg, #9A7D0A 0%, #D4AF37 45%, #F5C518 100%); /* ACCENT */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -217,10 +271,16 @@ body::after {
 
   /* Gold glow on numbers */
   .glow-amber {
-    text-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.25); /* ACCENT */
   }
 
-  /* Orbital CTA button — matches CalcMoney exactly */
+  /* Tabular gold numbers */
+  .tabular-gold {
+    @apply font-mono tracking-widest tabular-nums;
+    color: #D4AF37; /* ACCENT */
+  }
+
+  /* Orbital CTA button */
   .btn-orbital {
     @apply relative inline-flex items-center justify-center font-mono tracking-[0.15em] uppercase text-sm border border-amber-500/50 bg-transparent text-amber-400 transition-all duration-500 rounded-md px-6 py-3 shadow-[0_0_10px_rgba(212,175,55,0.1)];
   }
@@ -230,15 +290,15 @@ body::after {
 
   /* Solid gold primary button */
   .btn-primary-gold {
-    @apply relative inline-flex items-center justify-center font-bold text-sm rounded-md px-6 py-3 transition-all duration-150 w-full justify-center;
-    background: linear-gradient(135deg, #D4AF37 0%, #F5C518 100%);
+    @apply relative inline-flex items-center justify-center font-bold text-sm rounded-md px-6 py-3 transition-all duration-150 w-full;
+    background: linear-gradient(135deg, #D4AF37 0%, #F5C518 100%); /* ACCENT */
     color: #09090B;
     border: none;
   }
   .btn-primary-gold:hover {
     opacity: 0.92;
     transform: translateY(-1px);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* ACCENT */
   }
   .btn-primary-gold:active {
     transform: translateY(0);
@@ -249,7 +309,7 @@ body::after {
     border: 1px solid transparent;
     background-image:
       linear-gradient(#05060A, #05060A),
-      linear-gradient(135deg, rgba(212,175,55,0.22) 0%, rgba(212,175,55,0.07) 40%, transparent 70%);
+      linear-gradient(135deg, rgba(212,175,55,0.22) 0%, rgba(212,175,55,0.07) 40%, transparent 70%); /* ACCENT */
     background-origin: border-box;
     background-clip: padding-box, border-box;
     position: relative;
@@ -262,23 +322,17 @@ body::after {
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(212,175,55,0.55) 25%,
-      rgba(212,175,55,0.55) 75%,
+      rgba(212,175,55,0.55) 25%, /* ACCENT */
+      rgba(212,175,55,0.55) 75%, /* ACCENT */
       transparent 100%
     );
     border-radius: 2px 2px 0 0;
     pointer-events: none;
     z-index: 2;
   }
-
-  /* Tabular gold numbers */
-  .tabular-gold {
-    @apply font-mono tracking-widest tabular-nums;
-    color: #D4AF37;
-  }
 }
 
-/* Input fields — CalcMoney terminal style */
+/* Input fields */
 input[type="number"],
 input[type="text"] {
   font-variant-numeric: tabular-nums;
@@ -286,15 +340,15 @@ input[type="text"] {
 input[type="number"]:focus,
 input[type="text"]:focus {
   outline: none;
-  border-color: rgba(212, 175, 55, 0.45) !important;
-  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.12);
+  border-color: rgba(212, 175, 55, 0.45) !important; /* ACCENT */
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.12);    /* ACCENT */
 }
 
 /* Terminal scrollbar */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: #09090B; }
-::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.6); }
+::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 2px; } /* ACCENT */
+::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.6); }               /* ACCENT */
 
 /* Live dot */
 .live-dot {
@@ -307,7 +361,7 @@ input[type="text"]:focus {
 }
 @keyframes livePulse {
   0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); }
-  50% { opacity: 0.4; box-shadow: 0 0 4px rgba(16, 185, 129, 0.3); }
+  50%       { opacity: 0.4; box-shadow: 0 0 4px rgba(16, 185, 129, 0.3); }
 }
 
 /* Reduced motion */
@@ -316,13 +370,44 @@ input[type="text"]:focus {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
-  .aura-panel { will-change: auto; contain: none; }
+  .aura-panel { will-change: auto; }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
   body::before { filter: blur(80px); opacity: 0.06; }
   body::after  { filter: blur(80px); opacity: 0.03; }
+
   .aura-panel:hover { transform: none; }
+
+  .aura-panel {
+    backdrop-filter: blur(8px);
+  }
+
+  .holo-panel {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.03),
+      0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
   main { padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
+
+/* Touch devices */
+@media (hover: none) {
+  .aura-panel:hover { transform: none; }
+  .aura-panel:active {
+    background: rgba(255, 255, 255, 0.06);
+    transform: scale(0.99);
+  }
+  .btn-orbital:active {
+    color: #fff;
+    border-color: #fff;
+    background: rgba(212, 175, 55, 0.2); /* ACCENT */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); /* ACCENT */
+  }
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
