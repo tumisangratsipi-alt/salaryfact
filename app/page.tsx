@@ -72,9 +72,10 @@ export default function Home() {
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <a
             href="/"
-            className="font-bold text-lg tracking-tight"
+            className="font-bold text-lg tracking-tight flex items-center gap-2"
             style={{ color: "var(--text-primary)", textDecoration: "none" }}
           >
+            <img src="/logo.png" alt="SalaryFact logo" style={{ height: "28px", width: "auto" }} />
             <span className="text-gradient-1">salary</span>fact.com
           </a>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
