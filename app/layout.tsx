@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://salaryfact.com",
   },
+  verification: {
+    google: "ImM2vBJAmWBWeP5qZW0A-f5xM7ZWjiIl-Y5jaChFIXA",
+  },
 };
 
 export default function RootLayout({
