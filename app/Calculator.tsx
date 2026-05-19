@@ -10,6 +10,8 @@ import {
   type SalaryResult,
   type JobCategoryKey,
 } from "@/lib/salary-data";
+import { resolveSalaryRoute, type SalaryRouteResult } from "@/lib/routingLogic";
+import { logTelemetry } from "@/actions/logTelemetry";
 
 function DiffBadge({ amount }: { amount: number }) {
   const isPos = amount >= 0;
@@ -197,11 +199,41 @@ function ResultCard({ result, salary }: { result: SalaryResult; salary: number }
   );
 }
 
+function AffiliateCTA({ route }: { route: SalaryRouteResult }) {
+  if (!route.showCalcMoneyOS || !route.url) return null;
+  return (
+    <div
+      className="mt-6 p-4 rounded-xl"
+      style={{
+        background: "rgba(212,175,55,0.06)",
+        border: "1px solid rgba(212,175,55,0.3)",
+      }}
+    >
+      <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: route.colorHex }}>
+        Top-earner resources
+      </p>
+      <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
+        {route.sublabel}
+      </p>
+      <a
+        href={route.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-all"
+        style={{ background: route.colorHex, color: "#09090B", textDecoration: "none" }}
+      >
+        {route.label} &rarr;
+      </a>
+    </div>
+  );
+}
+
 export default function Calculator() {
   const [salaryInput, setSalaryInput] = useState("");
   const [stateCode, setStateCode] = useState("");
   const [jobCategory, setJobCategory] = useState<JobCategoryKey | "">("");
   const [result, setResult] = useState<{ data: SalaryResult; salary: number } | null>(null);
+  const [route, setRoute] = useState<SalaryRouteResult | null>(null);
   const [error, setError] = useState("");
 
   const handleCalculate = () => {
@@ -221,7 +253,17 @@ export default function Calculator() {
       return;
     }
     const data = calculateSalary(sal, stateCode, jobCategory);
+    const routeResult = resolveSalaryRoute(sal);
     setResult({ data, salary: sal });
+    setRoute(routeResult);
+
+    // Fire-and-forget telemetry
+    void logTelemetry({
+      annual_salary: sal,
+      state_code: stateCode,
+      job_category_key: jobCategory,
+    });
+
     setTimeout(() => {
       document.getElementById("result")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
@@ -317,6 +359,7 @@ export default function Calculator() {
       {/* Result */}
       <div id="result">
         {result && <ResultCard result={result.data} salary={result.salary} />}
+        {route && <AffiliateCTA route={route} />}
       </div>
     </div>
   );
