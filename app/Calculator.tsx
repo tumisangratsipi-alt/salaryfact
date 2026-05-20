@@ -227,9 +227,9 @@ function AffiliateCTA({ route }: { route: SalaryRouteResult }) {
   );
 }
 
-export default function Calculator() {
+export default function Calculator({ defaultState }: { defaultState?: string }) {
   const [salaryInput, setSalaryInput] = useState("");
-  const [stateCode, setStateCode] = useState("");
+  const [stateCode, setStateCode] = useState(defaultState ?? "");
   const [jobCategory, setJobCategory] = useState<JobCategoryKey | "">("");
   const [result, setResult] = useState<{ data: SalaryResult; salary: number } | null>(null);
   const [route, setRoute] = useState<SalaryRouteResult | null>(null);
