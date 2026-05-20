@@ -168,6 +168,8 @@ export default function Home() {
           <p className="mt-3 text-xs">
             Not financial advice. Salary percentiles are estimates based on BLS occupational data.
             &copy; {new Date().getFullYear()} salaryfact.com
+            {" · "}
+            <a href="/privacy" style={{ color: "var(--amber-500)", textDecoration: "none" }}>Privacy</a>
           </p>
         </div>
       </footer>

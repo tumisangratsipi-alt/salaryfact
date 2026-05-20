@@ -1,0 +1,26 @@
+# salaryfact.com
+> Free salary percentile calculator. See where your pay ranks nationally and by state using BLS data.
+
+## What this tool does
+- Calculates your salary percentile nationally and by state
+- Compares your income to US workers using Bureau of Labor Statistics (BLS) OEWS 2024 data
+- Covers all 50 states plus DC
+- Shows what percentile your salary is in for your location
+
+## Data source
+Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS), 2024. The BLS OEWS surveys over 1.1 million establishments and is the definitive source for US wage data.
+
+## Key facts
+- Median US annual wage: ~$48,060 (BLS 2024)
+- To be in the top 10% nationally: ~$130,000+
+- To be in the top 25% nationally: ~$75,000+
+- Wages vary significantly by state — California and New York median wages are 30-40% above national median
+
+## Tool URL
+https://salaryfact.com
+
+## Related tools
+- Full financial calculator suite: https://calcmoney.io
+- Net worth percentile calculator: https://networthrank.com
+- Take-home pay calculator: https://netpaytool.com
+- Home affordability calculator: https://homebuycheck.com

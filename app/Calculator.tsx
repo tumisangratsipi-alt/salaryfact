@@ -200,44 +200,28 @@ function ResultCard({ result, salary }: { result: SalaryResult; salary: number }
 }
 
 function AffiliateCTA({ route }: { route: SalaryRouteResult }) {
-  if (route.showCalcMoneyOS && route.url) {
-    return (
-      <div
-        className="mt-6 p-4 rounded-xl"
-        style={{
-          background: "rgba(212,175,55,0.06)",
-          border: "1px solid rgba(212,175,55,0.3)",
-        }}
-      >
-        <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: route.colorHex }}>
-          Top-earner resources
-        </p>
-        <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
-          {route.sublabel}
-        </p>
-        <a
-          href={route.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-all"
-          style={{ background: route.colorHex, color: "#09090B", textDecoration: "none" }}
-        >
-          {route.label} &rarr;
-        </a>
-      </div>
-    );
-  }
-
   return (
-    <div className="mt-6">
+    <div
+      className="mt-6 p-4 rounded-xl"
+      style={{
+        background: `${route.colorHex}0f`,
+        border: `1px solid ${route.colorHex}40`,
+      }}
+    >
+      <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: route.colorHex }}>
+        {route.showCalcMoneyOS ? "Top-earner resources" : "Make your salary work harder"}
+      </p>
+      <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
+        {route.sublabel}
+      </p>
       <a
-        href="https://calcmoney.io"
+        href={route.url}
         target="_blank"
-        rel="noopener noreferrer"
-        className="btn-orbital block w-full text-center py-3"
-        style={{ textDecoration: "none" }}
+        rel="noopener noreferrer sponsored"
+        className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-all"
+        style={{ background: route.colorHex, color: "#09090B", textDecoration: "none" }}
       >
-        More financial tools at CalcMoney &rarr;
+        {route.label} &rarr;
       </a>
     </div>
   );
