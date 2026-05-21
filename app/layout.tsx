@@ -40,6 +40,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* @ts-expect-error impact.com requires non-standard value= attribute */}
+        <meta name="impact-site-verification" value="fd73853b-e927-4f0e-baeb-25485c4a6692" />
+      </head>
       <body className="min-h-screen flex flex-col">
         {children}
         <Script
