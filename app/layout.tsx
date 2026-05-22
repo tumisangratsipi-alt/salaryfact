@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { DM_Serif_Display, Inter } from "next/font/google";
 import "./globals.css";
+
+const dmSerifDisplay = DM_Serif_Display({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Salary Percentile Calculator — Where Does Your Pay Rank?",
@@ -39,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${dmSerifDisplay.variable} ${inter.variable}`}>
       <head>
         {/* @ts-expect-error impact.com requires non-standard value= attribute */}
         <meta name="impact-site-verification" value="fd73853b-e927-4f0e-baeb-25485c4a6692" />
