@@ -125,6 +125,53 @@ export default function Home() {
         {/* Calculator */}
         <Calculator />
 
+        {/* Browse by state */}
+        <section className="mt-14">
+          <h2 className="text-xl font-bold mb-4">Salary percentile by state</h2>
+          <p className="text-sm mb-4" style={{ color: "var(--text-muted)" }}>
+            See how median wages and percentile breakpoints vary across the US.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {[
+              { code: "CA", name: "California",   median: "$72K" },
+              { code: "TX", name: "Texas",        median: "$58K" },
+              { code: "FL", name: "Florida",      median: "$55K" },
+              { code: "NY", name: "New York",     median: "$68K" },
+              { code: "PA", name: "Pennsylvania", median: "$58K" },
+              { code: "IL", name: "Illinois",     median: "$62K" },
+              { code: "OH", name: "Ohio",         median: "$54K" },
+              { code: "GA", name: "Georgia",      median: "$55K" },
+              { code: "NC", name: "N. Carolina",  median: "$56K" },
+              { code: "MI", name: "Michigan",     median: "$55K" },
+              { code: "NJ", name: "New Jersey",   median: "$70K" },
+              { code: "WA", name: "Washington",   median: "$74K" },
+              { code: "AZ", name: "Arizona",      median: "$58K" },
+              { code: "MA", name: "Massachusetts", median: "$75K" },
+              { code: "VA", name: "Virginia",     median: "$65K" },
+            ].map(({ code, name, median }) => (
+              <a
+                key={code}
+                href={`/state/${code.toLowerCase()}`}
+                className="aura-panel p-4 text-sm hover:opacity-80 transition-opacity"
+                style={{ textDecoration: "none", color: "var(--text-primary)" }}
+              >
+                <div className="font-semibold">{name}</div>
+                <div style={{ color: "var(--text-muted)" }}>Median: {median}</div>
+              </a>
+            ))}
+          </div>
+          <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>
+            <a href="/state/dc" style={{ color: "var(--amber-500)", textDecoration: "none" }}>Washington D.C.</a>
+            {" · "}
+            <a href="/state/ak" style={{ color: "var(--amber-500)", textDecoration: "none" }}>Alaska</a>
+            {" · "}
+            <a href="/state/ct" style={{ color: "var(--amber-500)", textDecoration: "none" }}>Connecticut</a>
+            {" · "}
+            <a href="/state/co" style={{ color: "var(--amber-500)", textDecoration: "none" }}>Colorado</a>
+            {" · and all 50 states"}
+          </p>
+        </section>
+
         {/* FAQ */}
         <section className="mt-14">
           <h2 className="text-xl font-bold mb-6">Frequently asked questions</h2>

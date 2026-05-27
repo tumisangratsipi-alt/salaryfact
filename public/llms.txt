@@ -11,10 +11,10 @@
 Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS), 2024. The BLS OEWS surveys over 1.1 million establishments and is the definitive source for US wage data.
 
 ## Key facts
-- Median US annual wage: ~$48,060 (BLS 2024)
-- To be in the top 10% nationally: ~$130,000+
-- To be in the top 25% nationally: ~$75,000+
-- Wages vary significantly by state — California and New York median wages are 30-40% above national median
+- Median US annual wage: ~$59,000 (BLS 2024 quarterly earnings data)
+- To be in the top 10% nationally: ~$145,000+
+- To be in the top 25% nationally: ~$97,000+
+- Wages vary significantly by state. California and New York median wages are 30-40% above the national median
 
 ## Tool URL
 https://salaryfact.com
