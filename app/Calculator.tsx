@@ -219,7 +219,7 @@ function AffiliateCTA({ route }: { route: SalaryRouteResult }) {
         href={route.url}
         target="_blank"
         rel="noopener noreferrer sponsored"
-        className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-all"
+        className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-[background-color,color,transform,opacity] duration-150 ease-out active:scale-[0.97]"
         style={{ background: route.colorHex, color: "#09090B", textDecoration: "none" }}
       >
         {route.label} &rarr;
@@ -290,7 +290,7 @@ export default function Calculator({ defaultState }: { defaultState?: string }) 
               onChange={(e) => setSalaryInput(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
+              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid var(--border-default)",
@@ -307,7 +307,7 @@ export default function Calculator({ defaultState }: { defaultState?: string }) 
             <select
               value={jobCategory}
               onChange={(e) => setJobCategory(e.target.value as JobCategoryKey | "")}
-              className="w-full rounded-md px-4 py-3 text-base transition-colors"
+              className="w-full rounded-md px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid var(--border-default)",
@@ -328,7 +328,7 @@ export default function Calculator({ defaultState }: { defaultState?: string }) 
             <select
               value={stateCode}
               onChange={(e) => setStateCode(e.target.value)}
-              className="w-full rounded-md px-4 py-3 text-base transition-colors"
+              className="w-full rounded-md px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid var(--border-default)",
@@ -411,7 +411,7 @@ function EmailCapture() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded-lg px-4 py-2 text-sm font-semibold transition-opacity disabled:opacity-50"
+          className="rounded-lg px-4 py-2 text-sm font-semibold transition-[opacity,transform] duration-150 ease-out active:scale-[0.97] disabled:opacity-50"
           style={{ background: "var(--color-accent)", color: "var(--color-accent-ink)" }}
         >
           {status === "loading" ? "..." : "Notify me"}
