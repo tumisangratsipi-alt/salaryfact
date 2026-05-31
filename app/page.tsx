@@ -79,10 +79,10 @@ export default function Home() {
             <span className="text-gradient-1">salary</span>fact.com
           </a>
           <nav className="flex items-center gap-1 flex-wrap">
-            <a href="https://calcmoney.io" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-colors" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>CalcMoney.io</a>
-            <a href="https://homebuycheck.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-colors" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Home Affordability</a>
-            <a href="https://netpaytool.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-colors" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Take-Home Pay</a>
-            <a href="https://networthrank.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-colors" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Net Worth Rank</a>
+            <a href="https://calcmoney.io" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>CalcMoney.io</a>
+            <a href="https://homebuycheck.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Home Affordability</a>
+            <a href="https://netpaytool.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Take-Home Pay</a>
+            <a href="https://networthrank.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Net Worth Rank</a>
           </nav>
         </div>
       </header>
@@ -152,7 +152,7 @@ export default function Home() {
               <a
                 key={code}
                 href={`/state/${code.toLowerCase()}`}
-                className="aura-panel p-4 text-sm hover:opacity-80 transition-opacity"
+                className="aura-panel p-4 text-sm hover:opacity-80"
                 style={{ textDecoration: "none", color: "var(--text-primary)" }}
               >
                 <div className="font-semibold">{name}</div>

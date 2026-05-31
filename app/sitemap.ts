@@ -1,9 +1,17 @@
 import type { MetadataRoute } from "next";
 import { STATE_NAMES } from "@/lib/salary-data";
+import { CITY_SLUGS } from "@/lib/city-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const statePages: MetadataRoute.Sitemap = Object.keys(STATE_NAMES).map((code) => ({
     url: `https://salaryfact.com/state/${code.toLowerCase()}`,
+    lastModified: new Date(),
+    changeFrequency: "yearly" as const,
+    priority: 0.8,
+  }));
+
+  const cityPages: MetadataRoute.Sitemap = CITY_SLUGS.map((slug) => ({
+    url: `https://salaryfact.com/city/${slug}`,
     lastModified: new Date(),
     changeFrequency: "yearly" as const,
     priority: 0.8,
@@ -23,5 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     ...statePages,
+    ...cityPages,
   ];
 }
