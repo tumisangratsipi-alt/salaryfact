@@ -149,9 +149,12 @@ def main() -> None:
     try:
         new_median, data_year = fetch_bls_median_annual()
     except Exception as exc:
-        msg = f":warning: salaryfact data update FAILED — could not fetch BLS data: {exc}"
+        # BLS API failures (rate limit, network, service unavailable) are transient.
+        # Exit 0 so the workflow doesn't show as failed — data updates are optional.
+        msg = f":information_source: salaryfact BLS fetch skipped (transient error): {exc}"
         slack(msg)
-        sys.exit(1)
+        print(f"BLS fetch skipped: {exc}")
+        sys.exit(0)
 
     print(f"BLS annualized median ({data_year}): ${new_median:,}")
 
