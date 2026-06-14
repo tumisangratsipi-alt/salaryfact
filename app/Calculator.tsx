@@ -290,10 +290,10 @@ export default function Calculator({ defaultState }: { defaultState?: string }) 
               onChange={(e) => setSalaryInput(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
-                border: "1px solid var(--border-default)",
+                border: "1px solid rgba(212,175,55,0.20)",
                 color: "var(--amber-400)",
               }}
             />
@@ -307,10 +307,10 @@ export default function Calculator({ defaultState }: { defaultState?: string }) 
             <select
               value={jobCategory}
               onChange={(e) => setJobCategory(e.target.value as JobCategoryKey | "")}
-              className="w-full rounded-md px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
-                border: "1px solid var(--border-default)",
+                border: "1px solid rgba(212,175,55,0.20)",
                 color: "var(--text-primary)",
               }}
             >
@@ -328,10 +328,10 @@ export default function Calculator({ defaultState }: { defaultState?: string }) 
             <select
               value={stateCode}
               onChange={(e) => setStateCode(e.target.value)}
-              className="w-full rounded-md px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
-                border: "1px solid var(--border-default)",
+                border: "1px solid rgba(212,175,55,0.20)",
                 color: "var(--text-primary)",
               }}
             >
