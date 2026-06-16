@@ -187,14 +187,26 @@ function ResultCard({ result, salary }: { result: SalaryResult; salary: number }
       {/* CTAs */}
       <div className="mt-6 space-y-3">
         <a
-          href="https://calcmoney.io"
+          href="https://calcmoney.io/calculators/salary-to-hourly"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-orbital block w-full text-center py-3"
           style={{ textDecoration: "none" }}
         >
-          More financial tools at CalcMoney &rarr;
+          Calculate exact hourly rate &amp; take-home pay at CalcMoney &rarr;
         </a>
+
+        <div className="pt-3 border-t" style={{ borderColor: "var(--border-subtle, rgba(255,255,255,0.06))" }}>
+          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>Related tools</p>
+          <div className="flex flex-col gap-2">
+            <a href="https://netpaytool.com" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
+              NetPayTool — see your after-tax take-home by state &rarr;
+            </a>
+            <a href="https://networthrank.com" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
+              NetWorthRank — where does your salary put your net worth? &rarr;
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

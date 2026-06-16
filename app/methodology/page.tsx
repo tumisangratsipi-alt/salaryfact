@@ -190,14 +190,14 @@ export default function MethodologyPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p>Data: BLS OEWS 2024.</p>
             <p>
-              More tools at{" "}
+              Salary-to-hourly calculator at{" "}
               <a
-                href="https://calcmoney.io"
+                href="https://calcmoney.io/calculators/salary-to-hourly"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--amber-500)", textDecoration: "none" }}
               >
-                calcmoney.io
+                CalcMoney
               </a>
             </p>
           </div>
