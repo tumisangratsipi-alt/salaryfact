@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   calculateSalary,
   formatCurrency,
@@ -117,24 +117,17 @@ function ResultCard({ result, salary }: { result: SalaryResult; salary: number }
       {/* Big percentile number */}
       <div className="text-center my-6">
         <p className="text-sm mb-1" style={{ color: "var(--text-muted)" }}>
-          You rank in the
+          You are in the
         </p>
         <p
           className="text-gradient-1 font-black leading-none glow-amber"
           style={{ fontSize: "clamp(56px, 14vw, 96px)" }}
         >
-          {result.nationalPercentile}th
+          TOP {Math.round(100 - result.nationalPercentile)}%
         </p>
         <p className="mt-1 text-base font-semibold" style={{ color: "var(--text-secondary)" }}>
-          Percentile nationally
+          of US earners nationally
         </p>
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full"
-          style={{ background: "rgba(167,139,250,0.12)", border: "1px solid rgba(167,139,250,0.25)" }}>
-          <span className="text-xs font-bold" style={{ color: "#A78BFA" }}>
-            {result.percentileLabel}
-          </span>
-        </div>
       </div>
 
       <PercentileBar percentile={result.nationalPercentile} />
@@ -170,9 +163,9 @@ function ResultCard({ result, salary }: { result: SalaryResult; salary: number }
 
       {/* State percentile card */}
       <div className="mt-4 p-3 rounded-lg flex justify-between items-center"
-        style={{ background: "rgba(167,139,250,0.06)", border: "1px solid rgba(167,139,250,0.15)" }}>
+        style={{ background: "var(--color-accent-glow-subtle)", border: "1px solid var(--border-accent)" }}>
         <span className="terminal-label">Percentile in {result.stateName}</span>
-        <span className="font-bold font-mono text-sm" style={{ color: "#A78BFA" }}>
+        <span className="font-bold font-mono text-sm" style={{ color: "var(--color-accent)" }}>
           {result.statePercentile}th
         </span>
       </div>
@@ -240,6 +233,31 @@ function AffiliateCTA({ route }: { route: SalaryRouteResult }) {
   );
 }
 
+function LiveSalaryContext() {
+  const [cpi, setCpi] = useState<number | null>(null);
+  useEffect(() => {
+    fetch("https://calcmoney.io/api/market-pulse")
+      .then((r) => r.json())
+      .then((d) => { if (d?.inflationRate) setCpi(d.inflationRate); })
+      .catch(() => {});
+  }, []);
+  if (!cpi) return null;
+  return (
+    <div className="mb-5 rounded-lg px-4 py-2.5 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[11px] font-mono" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+      <span className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.35)" }}>
+        <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#D4AF37", display: "inline-block", boxShadow: "0 0 4px #D4AF37" }} />
+        LIVE
+      </span>
+      <span style={{ color: "rgba(255,255,255,0.5)" }}>
+        CPI inflation <span style={{ color: "#D4AF37" }}>{cpi.toFixed(1)}%</span>
+      </span>
+      <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 10 }}>
+        your salary needs to beat {cpi.toFixed(1)}%/yr to keep purchasing power
+      </span>
+    </div>
+  );
+}
+
 export default function Calculator({ defaultState }: { defaultState?: string }) {
   const [salaryInput, setSalaryInput] = useState("");
   const [stateCode, setStateCode] = useState(defaultState ?? "");
@@ -287,8 +305,19 @@ export default function Calculator({ defaultState }: { defaultState?: string }) 
 
   return (
     <div>
+      <LiveSalaryContext />
       {/* Form */}
       <div className="aura-panel p-6">
+        <div className="flex items-center justify-between pb-4 mb-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.45)" }}>
+            Salary Rank Calculator
+          </span>
+          <span className="inline-flex items-center gap-1 text-[8px] font-mono tracking-wide rounded px-1.5 py-0.5"
+            style={{ color: "var(--color-accent)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
+            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block" }} />
+            Live data
+          </span>
+        </div>
         <div className="space-y-5">
           <div>
             <label className="terminal-label block mb-2">
