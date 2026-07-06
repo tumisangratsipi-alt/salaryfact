@@ -186,7 +186,7 @@ function ResultCard({ result, salary }: { result: SalaryResult; salary: number }
           className="btn-orbital block w-full text-center py-3"
           style={{ textDecoration: "none" }}
         >
-          Calculate exact hourly rate &amp; take-home pay at CalcMoney &rarr;
+          How much of {formatCurrency(salary)} do you actually keep? After-tax by state at CalcMoney &rarr;
         </a>
 
         <div className="pt-3 border-t" style={{ borderColor: "var(--border-subtle, rgba(255,255,255,0.06))" }}>
@@ -215,7 +215,7 @@ function AffiliateCTA({ route }: { route: SalaryRouteResult }) {
       }}
     >
       <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: route.colorHex }}>
-        {route.showCalcMoneyOS ? "Top-earner resources" : "Make your salary work harder"}
+        {route.showCalcMoneyOS ? "For $250K+ earners" : "Invest your surplus"}
       </p>
       <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
         {route.sublabel}
