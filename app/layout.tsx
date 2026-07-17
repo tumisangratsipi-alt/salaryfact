@@ -58,7 +58,7 @@ export default function RootLayout({
     <html lang="en" className={`${clashDisplay.variable} ${plusJakartaSans.variable}`}>
       <head>
         {/* @ts-expect-error impact.com requires non-standard value= attribute */}
-        <meta name="impact-site-verification" value="fd73853b-e927-4f0e-baeb-25485c4a6692" />
+        <meta name="impact-site-verification" value="2b06a73a-2723-4b80-9413-4dd872fb291d" />
       </head>
       <body className="min-h-screen flex flex-col">
         {children}
