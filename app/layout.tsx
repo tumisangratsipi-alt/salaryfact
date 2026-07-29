@@ -46,6 +46,7 @@ export const metadata: Metadata = {
   other: {
     "google-adsense-account": "ca-pub-1046440660422479",
     "verify-admitad": "dd1032e404",
+    "mitgo-verification": "09bd2dd9-e706-4509-b8e0-2eda3dc5f00f",
   },
 };
 
