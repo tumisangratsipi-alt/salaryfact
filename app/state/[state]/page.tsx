@@ -359,7 +359,7 @@ export default async function StatePage({
             style={{ color: "var(--text-primary)", textDecoration: "none" }}
           >
             <img src="/logo.png" alt="SalaryFact logo" style={{ height: "28px", width: "auto" }} />
-            <span className="text-gradient-1">salary</span>fact.com
+            <span style={{ whiteSpace: "nowrap" }}><span className="text-gradient-1">salary</span>fact.com</span>
           </a>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
             Data: BLS OEWS 2024
