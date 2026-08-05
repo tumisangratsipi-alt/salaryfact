@@ -13,7 +13,7 @@ export default function PrivacyPage() {
         Privacy Policy
       </h1>
       <p className="text-sm mb-10" style={{ color: "var(--text-muted)" }}>
-        Last updated: May 2025
+        Last updated: August 2026
       </p>
 
       <section className="mb-8">
@@ -21,9 +21,12 @@ export default function PrivacyPage() {
           What we collect
         </h2>
         <p className="leading-relaxed mb-3">
-          <strong>Nothing you type into the calculator is stored.</strong> All salary
-          percentile calculations run entirely in your browser. No salary figures or any
-          other inputs are transmitted to our servers.
+          <strong>Your calculation inputs are stored anonymously.</strong> When you calculate
+          your percentile, the annual salary, state, and job field you entered are sent to
+          our servers and stored so we can understand aggregate trends in what people are
+          calculating. This data is never linked to your name, email address, IP address, or
+          any other identifying information &mdash; there is no way for us or anyone else to
+          trace a stored entry back to you.
         </p>
         <p className="leading-relaxed">
           We do collect anonymous usage data through Google Analytics 4 (page views, session
