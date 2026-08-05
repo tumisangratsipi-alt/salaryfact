@@ -326,10 +326,11 @@ export default function Calculator({
         </div>
         <div className="space-y-5">
           <div>
-            <label className="terminal-label block mb-2">
+            <label htmlFor="annual-salary" className="terminal-label block mb-2">
               Annual salary (before taxes)
             </label>
             <input
+              id="annual-salary"
               type="text"
               inputMode="numeric"
               placeholder="75000"
@@ -350,8 +351,9 @@ export default function Calculator({
           </div>
 
           <div>
-            <label className="terminal-label block mb-2">Job category</label>
+            <label htmlFor="job-category" className="terminal-label block mb-2">Job category</label>
             <select
+              id="job-category"
               value={jobCategory}
               onChange={(e) => setJobCategory(e.target.value as JobCategoryKey | "")}
               className="w-full rounded-lg px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
@@ -371,8 +373,9 @@ export default function Calculator({
           </div>
 
           <div>
-            <label className="terminal-label block mb-2">State</label>
+            <label htmlFor="state-select" className="terminal-label block mb-2">State</label>
             <select
+              id="state-select"
               value={stateCode}
               onChange={(e) => setStateCode(e.target.value)}
               className="w-full rounded-lg px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
@@ -449,6 +452,7 @@ function EmailCapture() {
         <input
           type="email"
           required
+          aria-label="Email address"
           placeholder="you@email.com"
           value={email}
           onChange={e => setEmail(e.target.value)}
