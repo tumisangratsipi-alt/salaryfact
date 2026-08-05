@@ -223,6 +223,8 @@ export default function Home() {
             &copy; {new Date().getFullYear()} salaryfact.com
             {" · "}
             <a href="/privacy" style={{ color: "var(--amber-500)", textDecoration: "none" }}>Privacy</a>
+            {" · "}
+            <a href="https://www.youtube.com/@CalcMoney" target="_blank" rel="noopener noreferrer" style={{ color: "var(--amber-500)", textDecoration: "none" }}>YouTube</a>
           </p>
         </div>
       </footer>
