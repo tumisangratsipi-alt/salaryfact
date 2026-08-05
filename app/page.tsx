@@ -70,23 +70,23 @@ export default function Home() {
           backdropFilter: "blur(8px)",
         }}
       >
-        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between flex-wrap gap-y-2">
           <a
             href="/"
             className="font-display font-bold text-lg tracking-tight flex items-center gap-2"
             style={{ color: "var(--text-primary)", textDecoration: "none" }}
           >
             <img src="/logo.png" alt="SalaryFact logo" style={{ height: "28px", width: "auto" }} />
-            <span className="text-gradient-1">salary</span>fact.com
+            <span style={{ whiteSpace: "nowrap" }}><span className="text-gradient-1">salary</span>fact.com</span>
           </a>
-          
-            {/* Mobile: single CTA */}
-            <a href="https://calcmoney.io/calculators/salary-to-hourly" target="_blank" rel="noopener" className="sm:hidden text-xs px-3 py-1 rounded-full font-semibold" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>More Tools →</a>
-          <nav className="hidden sm:flex items-center gap-1 overflow-hidden">
-            <a href="https://calcmoney.io/calculators/salary-to-hourly" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>CalcMoney.io</a>
-            <a href="https://homebuycheck.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Home Affordability</a>
-            <a href="https://netpaytool.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Take-Home Pay</a>
-            <a href="https://networthrank.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Net Worth Rank</a>
+
+            {/* Mobile/tablet: single CTA */}
+            <a href="https://calcmoney.io/calculators/salary-to-hourly" target="_blank" rel="noopener" className="sm:hidden text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap flex-shrink-0" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>More Tools →</a>
+          <nav className="hidden sm:flex items-center gap-1">
+            <a href="https://calcmoney.io/calculators/salary-to-hourly" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full whitespace-nowrap transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>CalcMoney.io</a>
+            <a href="https://homebuycheck.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full whitespace-nowrap transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Homes</a>
+            <a href="https://netpaytool.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full whitespace-nowrap transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Paycheck</a>
+            <a href="https://networthrank.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full whitespace-nowrap transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Net Worth</a>
           </nav>
         </div>
       </header>
