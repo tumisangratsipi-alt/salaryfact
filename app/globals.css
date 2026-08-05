@@ -289,7 +289,8 @@
 
   /* Terminal label — uppercase mono */
   .terminal-label {
-    @apply text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500;
+    @apply text-[10px] font-mono font-bold uppercase tracking-widest;
+    color: var(--color-ink-muted);
   }
 
   /* Gold glow on numbers */
