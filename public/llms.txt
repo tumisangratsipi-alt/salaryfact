@@ -2,10 +2,10 @@
 > Free salary percentile calculator. See where your pay ranks nationally and by state using BLS data.
 
 ## What this tool does
-- Calculates your salary percentile nationally and by state
+- Calculates your salary percentile nationally, by state, and by job field
 - Compares your income to US workers using Bureau of Labor Statistics (BLS) OEWS 2024 data
-- Covers all 50 states plus DC
-- Shows what percentile your salary is in for your location
+- Covers all 50 states plus DC, and 14 job fields (technology, healthcare, finance, engineering, government, and more)
+- Shows what percentile your salary is in for your location and field
 
 ## Data source
 Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS), 2024. The BLS OEWS surveys over 1.1 million establishments and is the definitive source for US wage data.
@@ -15,6 +15,12 @@ Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS), 2
 - To be in the top 10% nationally: ~$145,000+
 - To be in the top 25% nationally: ~$97,000+
 - Wages vary significantly by state. California and New York median wages are 30-40% above the national median
+- Wages vary significantly by field. Technology & Software and Management & Executive lead at ~$105,000 median; Hospitality & Food Service is lowest at ~$35,000 median
+
+## Page types
+- State pages: https://salaryfact.com/state/{state-code} (e.g. /state/ca)
+- City pages: https://salaryfact.com/city/{city-slug}
+- Job field pages: https://salaryfact.com/category/{field} (e.g. /category/technology)
 
 ## Tool URL
 https://salaryfact.com

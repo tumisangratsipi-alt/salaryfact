@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { STATE_NAMES } from "@/lib/salary-data";
+import { STATE_NAMES, JOB_CATEGORY_KEYS } from "@/lib/salary-data";
 import { CITY_SLUGS } from "@/lib/city-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -12,6 +12,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const cityPages: MetadataRoute.Sitemap = CITY_SLUGS.map((slug) => ({
     url: `https://salaryfact.com/city/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "yearly" as const,
+    priority: 0.8,
+  }));
+
+  const categoryPages: MetadataRoute.Sitemap = JOB_CATEGORY_KEYS.map((key) => ({
+    url: `https://salaryfact.com/category/${key}`,
     lastModified: new Date(),
     changeFrequency: "yearly" as const,
     priority: 0.8,
@@ -32,5 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...statePages,
     ...cityPages,
+    ...categoryPages,
   ];
 }
