@@ -258,10 +258,16 @@ function LiveSalaryContext() {
   );
 }
 
-export default function Calculator({ defaultState }: { defaultState?: string }) {
+export default function Calculator({
+  defaultState,
+  defaultCategory,
+}: {
+  defaultState?: string;
+  defaultCategory?: JobCategoryKey;
+}) {
   const [salaryInput, setSalaryInput] = useState("");
   const [stateCode, setStateCode] = useState(defaultState ?? "");
-  const [jobCategory, setJobCategory] = useState<JobCategoryKey | "">("");
+  const [jobCategory, setJobCategory] = useState<JobCategoryKey | "">(defaultCategory ?? "");
   const [result, setResult] = useState<{ data: SalaryResult; salary: number } | null>(null);
   const [route, setRoute] = useState<SalaryRouteResult | null>(null);
   const [error, setError] = useState("");

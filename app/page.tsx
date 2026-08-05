@@ -1,4 +1,5 @@
 import Calculator from "./Calculator";
+import { JOB_CATEGORIES, JOB_CATEGORY_KEYS, formatCurrency } from "@/lib/salary-data";
 
 const faqItems = [
   {
@@ -173,6 +174,30 @@ export default function Home() {
             <a href="/state/co" style={{ color: "var(--amber-500)", textDecoration: "none" }}>Colorado</a>
             {" · and all 50 states"}
           </p>
+        </section>
+
+        {/* Browse by field */}
+        <section className="mt-14">
+          <h2 className="text-xl font-bold mb-4">Salary percentile by field</h2>
+          <p className="text-sm mb-4" style={{ color: "var(--text-muted)" }}>
+            See how median wages and percentile breakpoints vary across industries.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {JOB_CATEGORY_KEYS
+              .map((key) => [key, JOB_CATEGORIES[key]] as const)
+              .sort((a, b) => a[1].label.localeCompare(b[1].label))
+              .map(([key, { label, median }]) => (
+                <a
+                  key={key}
+                  href={`/category/${key}`}
+                  className="aura-panel p-4 text-sm hover:opacity-80"
+                  style={{ textDecoration: "none", color: "var(--text-primary)" }}
+                >
+                  <div className="font-semibold">{label}</div>
+                  <div style={{ color: "var(--text-muted)" }}>Median: {formatCurrency(median)}</div>
+                </a>
+              ))}
+          </div>
         </section>
 
         {/* FAQ */}
