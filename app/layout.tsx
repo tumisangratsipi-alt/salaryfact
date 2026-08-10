@@ -18,14 +18,14 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Salary Percentile Calculator — Where Does Your Pay Rank?",
+  title: "Salary & Income Percentile Calculator — Where Does Your Pay Rank?",
   description:
-    "Find out what percentile your salary is in nationally and by state. See how your pay compares to the median. All 50 states. Free, no sign-up.",
+    "Find out what percentile your salary or income is in nationally and by state. See how your average pay compares to the median. All 50 states. Free, no sign-up.",
   metadataBase: new URL("https://salaryfact.com"),
   openGraph: {
-    title: "Salary Percentile Calculator",
+    title: "Salary & Income Percentile Calculator",
     description:
-      "Find out what percentile your salary is in nationally and by state. BLS 2024 data.",
+      "Find out what percentile your salary or income is in nationally and by state. BLS 2024 data.",
     url: "https://salaryfact.com",
     siteName: "salaryfact.com",
     type: "website",
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Salary Percentile Calculator",
-    description: "See where your salary ranks nationally and by state. Free, no sign-up.",
+    title: "Salary & Income Percentile Calculator",
+    description: "See where your salary or income ranks nationally and by state. Free, no sign-up.",
     images: ["/og.png"],
   },
   alternates: {

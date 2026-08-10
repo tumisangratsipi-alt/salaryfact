@@ -31,14 +31,14 @@ export async function generateMetadata({
   const median = STATE_MEDIAN_SALARIES[code] ?? NATIONAL_MEDIAN;
 
   return {
-    title: `${name} Salary Percentile Calculator — Where Do You Rank?`,
-    description: `See where your salary ranks in ${name}. The median salary in ${name} is ${formatCurrency(median)}. Compare yourself against all ${name} workers using BLS 2024 data.`,
+    title: `${name} Average Salary & Percentile Calculator — Where Do You Rank?`,
+    description: `See where your salary ranks in ${name}. The average (median) salary in ${name} is ${formatCurrency(median)}. Compare yourself against all ${name} workers using BLS 2024 data.`,
     alternates: {
       canonical: `https://salaryfact.com/state/${slug}`,
     },
     openGraph: {
-      title: `${name} Salary Percentile Calculator`,
-      description: `The median salary in ${name} is ${formatCurrency(median)}. Find your percentile among ${name} workers.`,
+      title: `${name} Average Salary & Percentile Calculator`,
+      description: `The average (median) salary in ${name} is ${formatCurrency(median)}. Find your percentile among ${name} workers.`,
       url: `https://salaryfact.com/state/${slug}`,
     },
   };
@@ -310,6 +310,16 @@ export default async function StatePage({
   const median = STATE_MEDIAN_SALARIES[code] ?? NATIONAL_MEDIAN;
   const content = STATE_CONTENT[code] ?? getGenericContent(code);
 
+  // Real searchers ask "average salary in X," not "median" — BLS only reports
+  // median, so this answers the literal query phrasing honestly rather than
+  // silently treating the two as identical. Appended once here (not hand-written
+  // per state) so it covers every state, including the ~30 generic-content ones.
+  const averageFaq = {
+    q: `What is the average salary in ${name}?`,
+    a: `"Average" and "median" measure different things, but BLS reports the median: the midpoint where half of ${name} workers earn more and half earn less. The ${name} median is ${formatCurrency(median)}, ${median >= NATIONAL_MEDIAN ? "above" : "below"} the national median of ${formatCurrency(NATIONAL_MEDIAN)}. Use the calculator above to see exactly where your salary ranks.`,
+  };
+  const faqs = [...content.faqs, averageFaq];
+
   const stateTableRows = TABLE_POINTS.map((pt) => ({
     ...pt,
     stateSalary: getStateSalaryAtPercentile(code, pt.national),
@@ -335,7 +345,7 @@ export default async function StatePage({
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: content.faqs.map((faq) => ({
+    mainEntity: faqs.map((faq) => ({
       "@type": "Question",
       name: faq.q,
       acceptedAnswer: { "@type": "Answer", text: faq.a },
@@ -453,7 +463,7 @@ export default async function StatePage({
         <section className="mt-12">
           <h2 className="text-xl font-bold mb-6">{name} salary — frequently asked questions</h2>
           <div className="space-y-4">
-            {content.faqs.map((faq, i) => (
+            {faqs.map((faq, i) => (
               <div key={i} className="aura-panel p-5">
                 <h3 className="font-semibold mb-2" style={{ fontSize: 15 }}>{faq.q}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>{faq.a}</p>

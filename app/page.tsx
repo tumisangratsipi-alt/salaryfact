@@ -3,6 +3,10 @@ import { JOB_CATEGORIES, JOB_CATEGORY_KEYS, formatCurrency } from "@/lib/salary-
 
 const faqItems = [
   {
+    q: "What is an income percentile calculator?",
+    a: "An income percentile calculator shows where your income ranks compared to everyone else, from 1st percentile (lowest) to 99th (highest). Salary and income are treated the same way here: enter your annual pay and the calculator compares it against BLS 2024 wage data for the whole US, your state, and your field. There's no sign-up and nothing is saved.",
+  },
+  {
     q: "What percentile is a good salary?",
     a: "Any salary above the 50th percentile means you earn more than half of US workers. The national median is approximately $59,000 as of 2024 BLS data. The 75th percentile (roughly $97K) puts you in the top quarter nationally, which most financial planners consider a strong income. The top 10% starts around $145,000, and the top 1% is approximately $350,000 or more.",
   },
@@ -23,10 +27,10 @@ const faqItems = [
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Salary Percentile Calculator",
+  name: "Salary & Income Percentile Calculator",
   url: "https://salaryfact.com",
   description:
-    "Find out what percentile your salary is in nationally and by state. BLS 2024 data. All 50 states.",
+    "Find out what percentile your salary or income is in nationally and by state. BLS 2024 data. All 50 states.",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
   offers: {

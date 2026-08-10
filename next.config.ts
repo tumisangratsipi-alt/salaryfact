@@ -13,6 +13,23 @@ const nextConfig: NextConfig = {
     cpus: 1,
   },
 
+  async redirects() {
+    return [
+      // Google has "new-york" indexed with real search volume (confirmed via
+      // GSC: 298 impressions, the single highest of any page on the site) but
+      // it was never a real route — the actual slug is "new-york-city". "New
+      // York" alone unambiguously means the city (unlike "kansas"/"oklahoma"/
+      // "iowa", which collide with their /state/ pages), so this consolidates
+      // real indexed signal onto the canonical page instead of 200-ing a
+      // "City not found" soft-404.
+      {
+        source: "/city/new-york",
+        destination: "/city/new-york-city",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       // Static assets — 1 year, immutable

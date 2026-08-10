@@ -23,14 +23,14 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${city.name} Salary Percentile Calculator — Where Do You Rank?`,
-    description: `See where your salary ranks in ${city.name}. The median salary in ${city.name} is ${formatCurrency(city.medianSalary)}. Compare yourself against ${city.name} workers using BLS 2024 data.`,
+    title: `${city.name} Average Salary & Percentile Calculator — Where Do You Rank?`,
+    description: `See where your salary ranks in ${city.name}. The average (median) salary in ${city.name} is ${formatCurrency(city.medianSalary)}. Compare yourself against ${city.name} workers using BLS 2024 data.`,
     alternates: {
       canonical: `https://salaryfact.com/city/${slug}`,
     },
     openGraph: {
-      title: `${city.name} Salary Percentile Calculator`,
-      description: `The median salary in ${city.name} is ${formatCurrency(city.medianSalary)}. Find your percentile among ${city.name} workers.`,
+      title: `${city.name} Average Salary & Percentile Calculator`,
+      description: `The average (median) salary in ${city.name} is ${formatCurrency(city.medianSalary)}. Find your percentile among ${city.name} workers.`,
       url: `https://salaryfact.com/city/${slug}`,
     },
   };
@@ -66,6 +66,10 @@ function buildFaqs(cityName: string, cityMedian: number, pctDiff: number, vsNati
     {
       q: `What is the median salary in ${cityName}?`,
       a: `The median annual salary in ${cityName} is approximately ${formatCurrency(cityMedian)} based on 2024 BLS data. This is ${pctDiff}% ${vsNational} the national median of ${formatCurrency(NATIONAL_MEDIAN)}.`,
+    },
+    {
+      q: `What is the average salary in ${cityName}?`,
+      a: `"Average" and "median" measure different things, but BLS reports the median: the midpoint where half of ${cityName} workers earn more and half earn less. The ${cityName} median is ${formatCurrency(cityMedian)}, ${pctDiff}% ${vsNational} the national median of ${formatCurrency(NATIONAL_MEDIAN)}. Use the calculator above to see exactly where your salary ranks.`,
     },
     {
       q: `Where does your salary rank in ${cityName}?`,
