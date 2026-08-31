@@ -20,7 +20,7 @@ const faqItems = [
   },
   {
     q: "Why does my field matter for salary comparison?",
-    a: "Occupational medians vary enormously. The median for Technology and Software workers is around $105,000, while Hospitality and Food Service sits near $35,000. A salary of $80,000 in tech puts you below the field median; the same salary in Education places you well above it. Comparing yourself only to the national average without field context gives an incomplete picture of where you actually stand.",
+    a: "Occupational medians vary enormously. The median for Technology and Software workers is $109,280, while Hospitality and Food Service sits at $35,050 (BLS OEWS May 2025). A salary of $80,000 in tech puts you below the field median; the same salary in Education places you well above it. Comparing yourself only to the national average without field context gives an incomplete picture of where you actually stand.",
   },
 ];
 

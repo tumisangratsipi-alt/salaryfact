@@ -8,9 +8,12 @@
 // https://www.bls.gov/oes/special-requests/oesm25nat.zip
 // State file: https://www.bls.gov/oes/special-requests/oesm25st.zip
 // Downloaded and parsed directly, not estimated. Replaces a prior version
-// of this file whose NATIONAL_MEDIAN ($59,000), percentile breakpoints, and
-// all 51 state medians were invented placeholder figures, not real BLS
-// output — audited and rebuilt 2026-08-31.
+// of this file whose NATIONAL_MEDIAN ($59,000), percentile breakpoints,
+// all 51 state medians, and all 15 JOB_CATEGORIES medians were invented
+// placeholder figures, not real BLS output — audited and rebuilt
+// 2026-08-31 (national/state figures first, JOB_CATEGORIES in a same-day
+// follow-up pass — see that constant's own comment for its sourcing,
+// which needed a second BLS file).
 // ============================================================
 
 export const NATIONAL_MEDIAN = 50980;
@@ -69,22 +72,68 @@ export const STATE_NAMES: Record<string, string> = {
   WY: "Wyoming",
 };
 
+// Real BLS OEWS May 2025 medians, one per site category. These broad
+// site categories don't map 1:1 onto BLS's SOC occupation taxonomy, so
+// each was anchored to the closest real SOC group and documented below
+// rather than left as a guessed number. Source: same national file as
+// NATIONAL_MEDIAN (OCC_CODE column), plus a second real BLS file for
+// "government" specifically, since government is an ownership/sector
+// classification, not an occupation family — no SOC group represents it:
+// https://www.bls.gov/oes/special-requests/oesm25in4.zip,
+// national_owner_M2025_dl.xlsx, OWN_CODE 123 ("Federal, State, and
+// Local Government... OEWS Designation"), All Occupations row.
+//
+//   technology     -> SOC 15-0000 Computer and Mathematical Occupations
+//   healthcare     -> SOC 29-0000 Healthcare Practitioners and Technical
+//                      Occupations (the professional/clinical tier —
+//                      support roles sit in a separate, lower-paid SOC
+//                      major group, 31-0000, not blended in here)
+//   finance        -> SOC 13-2000 Financial Specialists (accountants,
+//                      analysts — tighter match than the broader
+//                      13-0000 Business and Financial Operations major
+//                      group, which also covers HR/logistics roles)
+//   education      -> SOC 25-0000 Educational Instruction and Library
+//                      Occupations
+//   legal          -> SOC 23-0000 Legal Occupations
+//   engineering    -> SOC 17-2000 Engineers (excludes architects/
+//                      drafters/surveying techs that sit in the same
+//                      17-0000 major group but aren't "engineering")
+//   sales          -> SOC 41-4000 Sales Representatives, Wholesale and
+//                      Manufacturing — a professional B2B sales anchor,
+//                      deliberately distinct from the "retail" category
+//                      below. "Marketing" itself has no dedicated SOC
+//                      group and isn't separately represented here.
+//   management     -> SOC 11-0000 Management Occupations
+//   creative       -> SOC 27-1000 Art and Design Workers (excludes
+//                      athletes/entertainers/journalists that sit in
+//                      the broader 27-0000 Arts/Design/Media major group)
+//   trades         -> SOC 47-0000 Construction and Extraction Occupations
+//   hospitality    -> SOC 35-0000 Food Preparation and Serving Related
+//                      Occupations
+//   retail         -> SOC 41-2000 Retail Sales Workers
+//   transportation -> SOC 53-0000 Transportation and Material Moving
+//                      Occupations
+//   government     -> All Occupations, Federal+State+Local government
+//                      ownership combined (see file/OWN_CODE note above)
+//   other          -> SOC 00-0000 All Occupations (same figure as
+//                      NATIONAL_MEDIAN — the honest anchor for a
+//                      residual/unspecified bucket)
 export const JOB_CATEGORIES: Record<string, { label: string; median: number }> = {
-  technology: { label: "Technology & Software", median: 105000 },
-  healthcare: { label: "Healthcare & Medical", median: 72000 },
-  finance: { label: "Finance & Accounting", median: 78000 },
-  education: { label: "Education & Teaching", median: 52000 },
-  legal: { label: "Legal & Compliance", median: 95000 },
-  engineering: { label: "Engineering", median: 95000 },
-  sales: { label: "Sales & Marketing", median: 65000 },
-  management: { label: "Management & Executive", median: 105000 },
-  creative: { label: "Creative & Design", median: 58000 },
-  trades: { label: "Trades & Construction", median: 55000 },
-  hospitality: { label: "Hospitality & Food Service", median: 35000 },
-  retail: { label: "Retail & Customer Service", median: 38000 },
-  transportation: { label: "Transportation & Logistics", median: 52000 },
-  government: { label: "Government & Public Service", median: 62000 },
-  other: { label: "Other", median: 59000 },
+  technology: { label: "Technology & Software", median: 109280 },
+  healthcare: { label: "Healthcare & Medical", median: 86530 },
+  finance: { label: "Finance & Accounting", median: 84680 },
+  education: { label: "Education & Teaching", median: 60570 },
+  legal: { label: "Legal & Compliance", median: 102500 },
+  engineering: { label: "Engineering", median: 108620 },
+  sales: { label: "Sales & Marketing", median: 76460 },
+  management: { label: "Management & Executive", median: 126520 },
+  creative: { label: "Creative & Design", median: 58240 },
+  trades: { label: "Trades & Construction", median: 59540 },
+  hospitality: { label: "Hospitality & Food Service", median: 35050 },
+  retail: { label: "Retail & Customer Service", median: 34810 },
+  transportation: { label: "Transportation & Logistics", median: 44350 },
+  government: { label: "Government & Public Service", median: 63390 },
+  other: { label: "Other", median: 50980 },
 };
 
 export type JobCategoryKey = keyof typeof JOB_CATEGORIES;
