@@ -28,7 +28,7 @@ export async function generateMetadata({
 
   return {
     title: `${category.label} Salary Percentile Calculator — Where Do You Rank?`,
-    description: `See where your salary ranks among ${category.label} workers. The median salary for ${category.label} is ${formatCurrency(category.median)}. Compare yourself using BLS 2024 data.`,
+    description: `See where your salary ranks among ${category.label} workers. The median salary for ${category.label} is ${formatCurrency(category.median)}. Compare yourself using BLS OEWS May 2025 data.`,
     alternates: {
       canonical: `https://salaryfact.com/category/${slug}`,
     },
@@ -40,15 +40,16 @@ export async function generateMetadata({
   };
 }
 
-// Salary percentile table breakpoints (national, used as reference)
+// Salary percentile table breakpoints (national, used as reference).
+// Real BLS OEWS May 2025 "All Occupations" figures — see lib/salary-data.ts
+// for source URLs and why this stops at the 90th percentile (OEWS's
+// standard table doesn't publish a 95th or 99th percentile wage).
 const TABLE_POINTS = [
-  { label: "10th", pct: 10, national: 15000 },
-  { label: "25th", pct: 25, national: 26000 },
-  { label: "50th (median)", pct: 50, national: 59000 },
-  { label: "75th", pct: 75, national: 97000 },
-  { label: "90th", pct: 90, national: 145000 },
-  { label: "95th", pct: 95, national: 200000 },
-  { label: "99th", pct: 99, national: 350000 },
+  { label: "10th", pct: 10, national: 31200 },
+  { label: "25th", pct: 25, national: 37590 },
+  { label: "50th (median)", pct: 50, national: 50980 },
+  { label: "75th", pct: 75, national: 80520 },
+  { label: "90th", pct: 90, national: 128560 },
 ];
 
 function getCategorySalaryAtPercentile(categoryMedian: number, nationalSalary: number): number {
@@ -61,12 +62,12 @@ function getGenericContent(slug: string) {
   const pctDiff = Math.round(Math.abs(category.median - NATIONAL_MEDIAN) / NATIONAL_MEDIAN * 100);
 
   return {
-    intro: `${category.label} has a median salary of ${formatCurrency(category.median)}, ${pctDiff}% ${vsNational} the national median of ${formatCurrency(NATIONAL_MEDIAN)}. The calculator below lets you see how your salary ranks against other ${category.label} workers using BLS 2024 data.`,
+    intro: `${category.label} has a median salary of ${formatCurrency(category.median)}, ${pctDiff}% ${vsNational} the national median of ${formatCurrency(NATIONAL_MEDIAN)}. The calculator below lets you see how your salary ranks against other ${category.label} workers using BLS OEWS May 2025 data.`,
     keyInsight: `The median salary in ${category.label} is ${formatCurrency(category.median)}. Half of all workers in this field earn less than this amount. Your field percentile measures where you stand relative to other ${category.label} workers, while your national percentile compares you to all US workers regardless of field.`,
     faqs: [
       {
         q: `What is the median salary in ${category.label}?`,
-        a: `The median annual salary in ${category.label} is approximately ${formatCurrency(category.median)} based on 2024 BLS data. This means half of all workers in this field earn below this amount and half earn above it. The national median across all fields is ${formatCurrency(NATIONAL_MEDIAN)}, making ${category.label} ${pctDiff}% ${vsNational} the national average.`,
+        a: `The median annual salary in ${category.label} is approximately ${formatCurrency(category.median)} based on May 2025 BLS data. This means half of all workers in this field earn below this amount and half earn above it. The national median across all fields is ${formatCurrency(NATIONAL_MEDIAN)}, making ${category.label} ${pctDiff}% ${vsNational} the national average.`,
       },
       {
         q: `What is a good salary in ${category.label}?`,
@@ -111,7 +112,7 @@ export default async function CategoryPage({
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: `${category.label} Salary Percentile Calculator`,
-    description: `See where your salary ranks among ${category.label} workers. BLS 2024 data.`,
+    description: `See where your salary ranks among ${category.label} workers. BLS OEWS May 2025 data.`,
     url: `https://salaryfact.com/category/${slug}`,
     breadcrumb: {
       "@type": "BreadcrumbList",
@@ -152,7 +153,7 @@ export default async function CategoryPage({
             <span style={{ whiteSpace: "nowrap" }}><span className="text-gradient-1">salary</span>fact.com</span>
           </a>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-            Data: BLS OEWS 2024
+            Data: BLS OEWS May 2025
           </span>
         </div>
       </header>
@@ -183,7 +184,7 @@ export default async function CategoryPage({
         {/* Data table */}
         <section className="mt-10">
           <h2 className="text-lg font-bold mb-4">
-            {category.label} salary percentiles — 2024
+            {category.label} salary percentiles — May 2025
           </h2>
           <div className="overflow-x-auto rounded-xl" style={{ border: "1px solid var(--border-subtle)" }}>
             <table className="w-full text-sm">
@@ -222,7 +223,7 @@ export default async function CategoryPage({
             </table>
           </div>
           <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
-            Field figures derived from BLS OEWS 2024 field median. National figures from BLS national percentile data.
+            Field figures derived from BLS OEWS May 2025 field median. National figures from BLS national percentile data.
           </p>
         </section>
 
@@ -287,7 +288,7 @@ export default async function CategoryPage({
         <div className="max-w-2xl mx-auto px-4 py-8 text-sm" style={{ color: "var(--text-muted)" }}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p>
-              Data: BLS OEWS 2024.{" "}
+              Data: BLS OEWS May 2025.{" "}
               <a href="/methodology" style={{ color: "var(--amber-500)", textDecoration: "none" }}>
                 Methodology &rarr;
               </a>

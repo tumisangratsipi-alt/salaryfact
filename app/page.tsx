@@ -1,22 +1,22 @@
 import Calculator from "./Calculator";
-import { JOB_CATEGORIES, JOB_CATEGORY_KEYS, formatCurrency } from "@/lib/salary-data";
+import { JOB_CATEGORIES, JOB_CATEGORY_KEYS, STATE_MEDIAN_SALARIES, formatCurrency } from "@/lib/salary-data";
 
 const faqItems = [
   {
     q: "What is an income percentile calculator?",
-    a: "An income percentile calculator shows where your income ranks compared to everyone else, from 1st percentile (lowest) to 99th (highest). Salary and income are treated the same way here: enter your annual pay and the calculator compares it against BLS 2024 wage data for the whole US, your state, and your field. There's no sign-up and nothing is saved.",
+    a: "An income percentile calculator shows where your income ranks compared to everyone else. Salary and income are treated the same way here: enter your annual pay and the calculator compares it against BLS OEWS May 2025 wage data for the whole US, your state, and your field, from the bottom of the distribution up to the 90th percentile (the highest BLS publishes in this dataset). There's no sign-up and nothing is saved.",
   },
   {
     q: "What percentile is a good salary?",
-    a: "Any salary above the 50th percentile means you earn more than half of US workers. The national median is approximately $59,000 as of 2024 BLS data. The 75th percentile (roughly $97K) puts you in the top quarter nationally, which most financial planners consider a strong income. The top 10% starts around $145,000, and the top 1% is approximately $350,000 or more.",
+    a: "Any salary above the 50th percentile means you earn more than half of US workers. The national median is $50,980 as of BLS OEWS May 2025 data. The 75th percentile ($80,520) puts you in the top quarter nationally, which most financial planners consider a strong income. The top 10% starts around $128,560. BLS OEWS doesn't publish a 95th or 99th percentile wage in this dataset, so this calculator doesn't claim one.",
   },
   {
     q: "What is the median salary in the United States?",
-    a: "The median annual wage in the United States is approximately $59,000 as of 2024, according to Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS) data. This means half of all American workers earn below this figure and half earn above it. The mean (average) is higher, around $65,000, because high earners pull it up.",
+    a: "The median annual wage in the United States is $50,980 as of BLS OEWS May 2025 data, according to Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS) data. This means half of all American workers earn below this figure and half earn above it. The mean (average) is higher, $69,770, because high earners pull it up.",
   },
   {
     q: "How does location affect salary percentile?",
-    a: "Location has a significant effect on where your salary ranks. States with higher costs of living — California, New York, Washington, Massachusetts — have higher median wages, so the same dollar amount ranks lower percentile-wise than in lower-cost states. Washington D.C. has the highest median at roughly $85,000. Mississippi has the lowest at around $43,000. This calculator adjusts your state percentile based on the state median, giving you a meaningful local comparison.",
+    a: "Location has a significant effect on where your salary ranks. States with higher costs of living — California, New York, Washington, Massachusetts — have higher median wages, so the same dollar amount ranks lower percentile-wise than in lower-cost states. Washington D.C. has the highest median at $91,540. Mississippi has the lowest at $40,120. This calculator adjusts your state percentile based on the state median, giving you a meaningful local comparison.",
   },
   {
     q: "Why does my field matter for salary comparison?",
@@ -30,7 +30,7 @@ const jsonLd = {
   name: "Salary & Income Percentile Calculator",
   url: "https://salaryfact.com",
   description:
-    "Find out what percentile your salary or income is in nationally and by state. BLS 2024 data. All 50 states.",
+    "Find out what percentile your salary or income is in nationally and by state. BLS OEWS May 2025 data. All 50 states.",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
   offers: {
@@ -112,7 +112,7 @@ export default function Home() {
               href="/methodology"
               style={{ color: "var(--amber-500)", textDecoration: "none" }}
             >
-              BLS 2024 data
+              BLS OEWS May 2025 data
             </a>
             .
           </p>
@@ -141,22 +141,22 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {[
-              { code: "CA", name: "California",   median: "$72K" },
-              { code: "TX", name: "Texas",        median: "$58K" },
-              { code: "FL", name: "Florida",      median: "$55K" },
-              { code: "NY", name: "New York",     median: "$68K" },
-              { code: "PA", name: "Pennsylvania", median: "$58K" },
-              { code: "IL", name: "Illinois",     median: "$62K" },
-              { code: "OH", name: "Ohio",         median: "$54K" },
-              { code: "GA", name: "Georgia",      median: "$55K" },
-              { code: "NC", name: "N. Carolina",  median: "$56K" },
-              { code: "MI", name: "Michigan",     median: "$55K" },
-              { code: "NJ", name: "New Jersey",   median: "$70K" },
-              { code: "WA", name: "Washington",   median: "$74K" },
-              { code: "AZ", name: "Arizona",      median: "$58K" },
-              { code: "MA", name: "Massachusetts", median: "$75K" },
-              { code: "VA", name: "Virginia",     median: "$65K" },
-            ].map(({ code, name, median }) => (
+              { code: "CA", name: "California" },
+              { code: "TX", name: "Texas" },
+              { code: "FL", name: "Florida" },
+              { code: "NY", name: "New York" },
+              { code: "PA", name: "Pennsylvania" },
+              { code: "IL", name: "Illinois" },
+              { code: "OH", name: "Ohio" },
+              { code: "GA", name: "Georgia" },
+              { code: "NC", name: "N. Carolina" },
+              { code: "MI", name: "Michigan" },
+              { code: "NJ", name: "New Jersey" },
+              { code: "WA", name: "Washington" },
+              { code: "AZ", name: "Arizona" },
+              { code: "MA", name: "Massachusetts" },
+              { code: "VA", name: "Virginia" },
+            ].map(({ code, name }) => (
               <a
                 key={code}
                 href={`/state/${code.toLowerCase()}`}
@@ -164,7 +164,9 @@ export default function Home() {
                 style={{ textDecoration: "none", color: "var(--text-primary)" }}
               >
                 <div className="font-semibold">{name}</div>
-                <div style={{ color: "var(--text-muted)" }}>Median: {median}</div>
+                <div style={{ color: "var(--text-muted)" }}>
+                  Median: {formatCurrency(STATE_MEDIAN_SALARIES[code])}
+                </div>
               </a>
             ))}
           </div>
@@ -230,7 +232,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto px-4 py-8 text-sm" style={{ color: "var(--text-muted)" }}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p>
-              Data: BLS OEWS 2024.{" "}
+              Data: BLS OEWS May 2025.{" "}
               <a href="/methodology" style={{ color: "var(--amber-500)", textDecoration: "none" }}>
                 Methodology &rarr;
               </a>

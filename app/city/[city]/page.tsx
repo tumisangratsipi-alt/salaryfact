@@ -24,7 +24,7 @@ export async function generateMetadata({
 
   return {
     title: `${city.name} Average Salary & Percentile Calculator — Where Do You Rank?`,
-    description: `See where your salary ranks in ${city.name}. The average (median) salary in ${city.name} is ${formatCurrency(city.medianSalary)}. Compare yourself against ${city.name} workers using BLS 2024 data.`,
+    description: `See where your salary ranks in ${city.name}. The average (median) salary in ${city.name} is ${formatCurrency(city.medianSalary)}. Compare yourself against ${city.name} workers using BLS OEWS May 2025 data.`,
     alternates: {
       canonical: `https://salaryfact.com/city/${slug}`,
     },
@@ -36,15 +36,16 @@ export async function generateMetadata({
   };
 }
 
-// Salary percentile table breakpoints
+// Salary percentile table breakpoints. Real BLS OEWS May 2025 "All
+// Occupations" figures — see lib/salary-data.ts for source URLs and why
+// this stops at the 90th percentile (OEWS's standard table doesn't
+// publish a 95th or 99th percentile wage).
 const TABLE_POINTS = [
-  { label: "10th", pct: 10, national: 15000 },
-  { label: "25th", pct: 25, national: 26000 },
-  { label: "50th (median)", pct: 50, national: 59000 },
-  { label: "75th", pct: 75, national: 97000 },
-  { label: "90th", pct: 90, national: 145000 },
-  { label: "95th", pct: 95, national: 200000 },
-  { label: "99th", pct: 99, national: 350000 },
+  { label: "10th", pct: 10, national: 31200 },
+  { label: "25th", pct: 25, national: 37590 },
+  { label: "50th (median)", pct: 50, national: 50980 },
+  { label: "75th", pct: 75, national: 80520 },
+  { label: "90th", pct: 90, national: 128560 },
 ];
 
 function getCitySalaryAtPercentile(cityMedian: number, nationalSalary: number): number {
@@ -65,7 +66,7 @@ function buildFaqs(cityName: string, cityMedian: number, pctDiff: number, vsNati
   return [
     {
       q: `What is the median salary in ${cityName}?`,
-      a: `The median annual salary in ${cityName} is approximately ${formatCurrency(cityMedian)} based on 2024 BLS data. This is ${pctDiff}% ${vsNational} the national median of ${formatCurrency(NATIONAL_MEDIAN)}.`,
+      a: `The median annual salary in ${cityName} is approximately ${formatCurrency(cityMedian)} based on May 2025 BLS data. This is ${pctDiff}% ${vsNational} the national median of ${formatCurrency(NATIONAL_MEDIAN)}.`,
     },
     {
       q: `What is the average salary in ${cityName}?`,
@@ -81,7 +82,7 @@ function buildFaqs(cityName: string, cityMedian: number, pctDiff: number, vsNati
     },
     {
       q: `What salary is needed to be in the top 25% in ${cityName}?`,
-      a: `To reach the top 25% of earners in ${cityName}, you need approximately ${formatCurrency(getCitySalaryAtPercentile(cityMedian, 97000))} or more. The top 10% threshold in ${cityName} is around ${formatCurrency(getCitySalaryAtPercentile(cityMedian, 145000))}.`,
+      a: `To reach the top 25% of earners in ${cityName}, you need approximately ${formatCurrency(getCitySalaryAtPercentile(cityMedian, 80520))} or more. The top 10% threshold in ${cityName} is around ${formatCurrency(getCitySalaryAtPercentile(cityMedian, 128560))}.`,
     },
   ];
 }
@@ -114,7 +115,7 @@ export default async function CityPage({
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: `${city.name} Salary Percentile Calculator`,
-    description: `See where your salary ranks in ${city.name}. BLS 2024 data.`,
+    description: `See where your salary ranks in ${city.name}. BLS OEWS May 2025 data.`,
     url: `https://salaryfact.com/city/${slug}`,
     breadcrumb: {
       "@type": "BreadcrumbList",
@@ -168,7 +169,7 @@ export default async function CityPage({
             <span style={{ whiteSpace: "nowrap" }}><span className="text-gradient-1">salary</span>fact.com</span>
           </a>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-            Data: BLS OEWS 2024
+            Data: BLS OEWS May 2025
           </span>
         </div>
       </header>
@@ -256,7 +257,7 @@ export default async function CityPage({
         {/* Data table */}
         <section className="mt-10">
           <h2 className="text-lg font-bold mb-4">
-            {city.name} salary percentiles — 2024
+            {city.name} salary percentiles — May 2025
           </h2>
           <div
             className="overflow-x-auto rounded-xl"
@@ -325,7 +326,7 @@ export default async function CityPage({
             </table>
           </div>
           <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
-            City figures derived from BLS OEWS 2024 metro area median. National
+            City figures derived from BLS OEWS May 2025 metro area median. National
             figures from BLS national percentile data.
           </p>
         </section>
@@ -349,9 +350,9 @@ export default async function CityPage({
             {pctDiff}% {vsNational} the US national median of{" "}
             {formatCurrency(NATIONAL_MEDIAN)}. The top 25% of {city.name} workers
             earn at least{" "}
-            {formatCurrency(getCitySalaryAtPercentile(city.medianSalary, 97000))}. The
+            {formatCurrency(getCitySalaryAtPercentile(city.medianSalary, 80520))}. The
             top 10% threshold is around{" "}
-            {formatCurrency(getCitySalaryAtPercentile(city.medianSalary, 145000))}.
+            {formatCurrency(getCitySalaryAtPercentile(city.medianSalary, 128560))}.
           </p>
         </div>
 
@@ -435,7 +436,7 @@ export default async function CityPage({
         >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p>
-              Data: BLS OEWS 2024.{" "}
+              Data: BLS OEWS May 2025.{" "}
               <a
                 href="/methodology"
                 style={{ color: "var(--amber-500)", textDecoration: "none" }}
