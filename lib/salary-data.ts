@@ -1,58 +1,58 @@
 // ============================================================
-// SALARY PERCENTILE DATA — BLS/Census-based 2024
+// SALARY PERCENTILE DATA — BLS OEWS May 2025 (real, verified)
 // salaryfact.com
+//
+// Source: BLS Occupational Employment and Wage Statistics, May 2025
+// release (the most current available as of this fix), "All Occupations"
+// row (OCC_CODE 00-0000), cross-industry. National file:
+// https://www.bls.gov/oes/special-requests/oesm25nat.zip
+// State file: https://www.bls.gov/oes/special-requests/oesm25st.zip
+// Downloaded and parsed directly, not estimated. Replaces a prior version
+// of this file whose NATIONAL_MEDIAN ($59,000), percentile breakpoints, and
+// all 51 state medians were invented placeholder figures, not real BLS
+// output — audited and rebuilt 2026-08-31.
 // ============================================================
 
-export const NATIONAL_MEDIAN = 59000;
+export const NATIONAL_MEDIAN = 50980;
 
-// BLS-based 2024 national salary percentile breakpoints (annual)
+// Real BLS OEWS national annual wage percentiles for "All Occupations".
+// OEWS's standard cross-industry table only publishes 10th/25th/median/
+// 75th/90th — there is no real BLS figure for a 95th or 99th percentile
+// wage in this dataset, so this file no longer invents ones. A "top 1%"
+// feature would need a distinct, separately-labeled source (e.g. IRS SOI
+// AGI percentiles), not a number bolted onto this table.
 const NATIONAL_PERCENTILES: Record<string, number> = {
-  p10: 15000,
-  p20: 22000,
-  p25: 26000,
-  p30: 30000,
-  p40: 37000,
-  p50: 59000,
-  p60: 72000,
-  p70: 87000,
-  p75: 97000,
-  p80: 110000,
-  p90: 145000,
-  p95: 200000,
-  p99: 350000,
+  p10: 31200,
+  p25: 37590,
+  p50: 50980,
+  p75: 80520,
+  p90: 128560,
 };
 
-// Ordered breakpoints for interpolation
+// Ordered breakpoints for interpolation. Capped at the real p90 anchor —
+// see the comment on NATIONAL_PERCENTILES for why there's nothing above it.
 const BREAKPOINTS: Array<{ percentile: number; salary: number }> = [
   { percentile: 0, salary: 0 },
   { percentile: 10, salary: NATIONAL_PERCENTILES.p10 },
-  { percentile: 20, salary: NATIONAL_PERCENTILES.p20 },
   { percentile: 25, salary: NATIONAL_PERCENTILES.p25 },
-  { percentile: 30, salary: NATIONAL_PERCENTILES.p30 },
-  { percentile: 40, salary: NATIONAL_PERCENTILES.p40 },
   { percentile: 50, salary: NATIONAL_PERCENTILES.p50 },
-  { percentile: 60, salary: NATIONAL_PERCENTILES.p60 },
-  { percentile: 70, salary: NATIONAL_PERCENTILES.p70 },
   { percentile: 75, salary: NATIONAL_PERCENTILES.p75 },
-  { percentile: 80, salary: NATIONAL_PERCENTILES.p80 },
   { percentile: 90, salary: NATIONAL_PERCENTILES.p90 },
-  { percentile: 95, salary: NATIONAL_PERCENTILES.p95 },
-  { percentile: 99, salary: NATIONAL_PERCENTILES.p99 },
 ];
 
-// State median annual salaries (BLS 2024 approximations)
+// Real state median annual salaries, BLS OEWS May 2025, "All Occupations".
 export const STATE_MEDIAN_SALARIES: Record<string, number> = {
-  AL: 48000, AK: 62000, AZ: 58000, AR: 46000, CA: 72000,
-  CO: 67000, CT: 70000, DE: 62000, DC: 85000, FL: 55000,
-  GA: 55000, HI: 60000, ID: 52000, IL: 62000, IN: 52000,
-  IA: 55000, KS: 52000, KY: 49000, LA: 48000, ME: 55000,
-  MD: 68000, MA: 75000, MI: 55000, MN: 64000, MS: 43000,
-  MO: 52000, MT: 50000, NE: 55000, NV: 55000, NH: 68000,
-  NJ: 70000, NM: 49000, NY: 68000, NC: 56000, ND: 55000,
-  OH: 54000, OK: 48000, OR: 63000, PA: 58000, RI: 62000,
-  SC: 50000, SD: 48000, TN: 52000, TX: 58000, UT: 60000,
-  VT: 57000, VA: 65000, WA: 74000, WV: 44000, WI: 57000,
-  WY: 55000,
+  AL: 45670, AK: 61000, AZ: 50060, AR: 43630, CA: 58240,
+  CO: 59800, CT: 59690, DE: 52190, DC: 91540, FL: 47880,
+  GA: 48170, HI: 56320, ID: 47970, IL: 51960, IN: 47860,
+  IA: 48540, KS: 48010, KY: 46920, LA: 45520, ME: 51430,
+  MD: 59510, MA: 63590, MI: 49270, MN: 56920, MS: 40120,
+  MO: 47800, MT: 48740, NE: 48980, NV: 47660, NH: 55880,
+  NJ: 58570, NM: 47210, NY: 59670, NC: 47970, ND: 52480,
+  OH: 49380, OK: 45600, OR: 57000, PA: 49690, RI: 56780,
+  SC: 46490, SD: 47080, TN: 47380, TX: 48620, UT: 50110,
+  VT: 56390, VA: 55690, WA: 62990, WV: 45300, WI: 50270,
+  WY: 50270,
 };
 
 export const STATE_NAMES: Record<string, string> = {
@@ -115,7 +115,10 @@ export function formatPercent(n: number): string {
 
 export function calculateNationalPercentile(salary: number): number {
   if (salary <= 0) return 0;
-  if (salary >= BREAKPOINTS[BREAKPOINTS.length - 1].salary) return 99;
+  // Real BLS OEWS data tops out at the 90th percentile anchor (see
+  // NATIONAL_PERCENTILES above) — anything at or above it is honestly
+  // "90th percentile or higher," not a fabricated 95th/99th.
+  if (salary >= BREAKPOINTS[BREAKPOINTS.length - 1].salary) return 90;
 
   for (let i = 1; i < BREAKPOINTS.length; i++) {
     const lower = BREAKPOINTS[i - 1];
@@ -140,8 +143,8 @@ export function calculateStatePercentile(salary: number, stateCode: string): num
 }
 
 export function getPercentileLabel(percentile: number): string {
-  if (percentile >= 99) return "Top 1%";
-  if (percentile >= 95) return "Top 5%";
+  // 90 is the real ceiling calculateNationalPercentile/calculateStatePercentile
+  // can return now (see BREAKPOINTS) — no fabricated tiers above it.
   if (percentile >= 90) return "Top 10%";
   if (percentile >= 75) return "Top 25%";
   if (percentile >= 60) return "Above Average";
