@@ -1,0 +1,34 @@
+{
+  "_readme": "Provenance manifest for every hardcoded real-world fact in this repo's calculators. Each entry names the real external source, its real update cadence, when it was last verified against that source (by whom/what commit), whether an automated check exists, and that check's actual verified status. Update this file in the same commit as any data fix. Do not add an entry with a fabricated or unverified source - if a fact's real source hasn't been checked, mark automated_check.status as \"missing\" and last_verified.method as \"never independently verified\", don't invent a plausible-looking entry.",
+  "repo": "salaryfact",
+  "manifest_created": "2026-09-08",
+  "entries": [
+    {
+      "id": "national-state-city-category-wages",
+      "file": "lib/salary-data.ts",
+      "fields": ["NATIONAL_MEDIAN", "NATIONAL_PERCENTILES", "STATE_MEDIAN_SALARIES", "city medians (181 metros)", "JOB_CATEGORIES medians"],
+      "description": "Every wage figure across the whole site - national percentile curve, state medians, city medians, and job-category medians.",
+      "real_source": {
+        "name": "BLS Occupational Employment and Wage Statistics (OEWS), May 2025 release",
+        "url": "https://www.bls.gov/oes/",
+        "real_cadence": "annual - BLS publishes OEWS in the following spring for the prior May reference period (e.g. May 2025 data released ~April 2026)"
+      },
+      "last_verified": {
+        "date": "2026-08-31",
+        "commit": "6fc563d, f6012dc, f183ec8, d9e6574 (4 commits, one per dataset tier: national/state, city, homepage cross-link, job categories)",
+        "method": "manual audit - downloaded the real BLS OEWS May 2025 national/state/MSA/SOC-code data files directly, matched all 181 cities via component-based real BLS MSA title matching"
+      },
+      "automated_check": {
+        "exists": true,
+        "workflow": ".github/workflows/update-data.yml",
+        "status_verified_on": "2026-09-08",
+        "status": "BROKEN since creation - has never once worked",
+        "behavior_as_designed": "Was meant to fetch BLS series LEU0252881600Q (a Current Population Survey quarterly median-weekly-earnings series) weekly, and if the national figure moved by more than $1,000, proportionally scale every percentile, state median, and city median by that same ratio and auto-commit.",
+        "actual_finding_2026-09-08": "Series ID LEU0252881600Q does not exist - confirmed by calling the real BLS API directly, which returns 'Series does not exist for Series LEU0252881600Q'. Checked the full run history via `gh run list`: every single run since the workflow's creation on 2026-05-27 (roughly 15 runs, weekly, over 3+ months) has hit this exact error and silently exited 0 with a soft 'transient error' Slack message, meaning it has never once fetched real data or made a commit. It has been reporting a green checkmark in GitHub Actions the entire time while doing nothing.",
+        "additional_design_flaw": "Even if the series ID were fixed, this design would still be wrong: BLS CPS national median weekly earnings and BLS OEWS per-city/per-occupation wages are two different surveys that don't move proportionally to each other. Proportionally scaling the real, independently-sourced city and category data (from the Aug 31 fix) off an unrelated CPS statistic would silently drift that data away from reality with every triggered run, not toward it - a new, mechanically-generated form of the same fabrication problem this manifest exists to prevent.",
+        "recommendation": "Retire this script's scaling logic entirely rather than patch the series ID. Replace with a real annual re-fetch of the actual BLS OEWS release (matching the real May-data/following-spring cadence), diffed against the current file and flagged for review rather than auto-committed - not a weekly proportional-scaling job against an unrelated series."
+      },
+      "next_check_due": "2027-04-01"
+    }
+  ]
+}
