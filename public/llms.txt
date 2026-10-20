@@ -1,26 +1,31 @@
 # salaryfact.com
-> Free salary percentile calculator. See where your pay ranks nationally and by state using BLS data.
+> Free salary percentile calculator. See where your pay ranks nationally, in your state and in your field, using Bureau of Labor Statistics wage data.
 
 ## What this tool does
-- Calculates your salary percentile nationally, by state, and by job field
-- Compares your income to US workers using Bureau of Labor Statistics (BLS) OEWS 2024 data
-- Covers all 50 states plus DC, and 14 job fields (technology, healthcare, finance, engineering, government, and more)
-- Shows what percentile your salary is in for your location and field
+- Calculates your salary percentile nationally, by state and by job field
+- Compares your pay to US workers using Bureau of Labor Statistics (BLS) Occupational Employment and Wage Statistics (OEWS), May 2025 release
+- Covers all 50 states plus DC and 15 job fields: technology, healthcare, finance, education, legal, engineering, sales, management, creative, trades, hospitality, retail, transportation, government and other
+- Reads percentiles from the 10th, 25th, 50th, 75th and 90th points that BLS publishes, with interpolation between them. BLS does not publish a wage above the 90th percentile in this dataset, so the calculator does not rank above it
 
 ## Data source
-Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS), 2024. The BLS OEWS surveys over 1.1 million establishments and is the definitive source for US wage data.
+BLS OEWS, May 2025 release, "All Occupations" cross-industry figures (national and state files). Job field medians come from the matching Standard Occupational Classification major groups.
 
-## Key facts
-- Median US annual wage: ~$59,000 (BLS 2024 quarterly earnings data)
-- To be in the top 10% nationally: ~$145,000+
-- To be in the top 25% nationally: ~$97,000+
-- Wages vary significantly by state. California and New York median wages are 30-40% above the national median
-- Wages vary significantly by field. Technology & Software and Management & Executive lead at ~$105,000 median; Hospitality & Food Service is lowest at ~$35,000 median
+## Key facts (BLS OEWS, May 2025)
+- National median annual wage: $50,980
+- National percentiles: 10th $31,200; 25th $37,590; 75th $80,520; 90th $128,560
+- Highest state median: District of Columbia, $91,540. Lowest: Mississippi, $40,120
+- California's median is $58,240 and New York's is $59,670, about 14% and 17% above the national median
+- Highest field medians: Management & Executive $126,520, Technology & Software $109,280, Engineering $108,620, Legal & Compliance $102,500
+- Lowest field medians: Retail & Customer Service $34,810 and Hospitality & Food Service $35,050
 
 ## Page types
-- State pages: https://salaryfact.com/state/{state-code} (e.g. /state/ca)
-- City pages: https://salaryfact.com/city/{city-slug}
-- Job field pages: https://salaryfact.com/category/{field} (e.g. /category/technology)
+- State pages: https://salaryfact.com/state/{state-code} (51 pages; example /state/ca)
+- City pages: https://salaryfact.com/city/{city-slug} (181 pages; example /city/houston)
+- Job field pages: https://salaryfact.com/category/{field} (15 pages; example /category/technology)
+- Methodology: https://salaryfact.com/methodology
+
+## Not supported
+The calculator does not accept URL parameters. Link to the state, city or field page you mean.
 
 ## Tool URL
 https://salaryfact.com
