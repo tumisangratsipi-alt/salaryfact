@@ -16,7 +16,7 @@ const faqItems = [
   },
   {
     q: "How does location affect salary percentile?",
-    a: "Location has a significant effect on where your salary ranks. States with higher costs of living — California, New York, Washington, Massachusetts — have higher median wages, so the same dollar amount ranks lower percentile-wise than in lower-cost states. Washington D.C. has the highest median at $91,540. Mississippi has the lowest at $40,120. This calculator adjusts your state percentile based on the state median, giving you a meaningful local comparison.",
+    a: "Location has a significant effect on where your salary ranks. States with higher costs of living (California, New York, Washington, Massachusetts) have higher median wages, so the same dollar amount ranks lower percentile-wise than in lower-cost states. Washington D.C. has the highest median at $91,540. Mississippi has the lowest at $40,120. This calculator adjusts your state percentile based on the state median, giving you a meaningful local comparison.",
   },
   {
     q: "Why does my field matter for salary comparison?",

@@ -43,7 +43,7 @@ function PercentileBar({ percentile }: { percentile: number }) {
       >
         {/* Filled bar */}
         <div
-          className="h-full rounded-full transition-all duration-700"
+          className="h-full rounded-full transition-[width] duration-700"
           style={{
             width: `${percentile}%`,
             background: "linear-gradient(90deg, #7C3AED 0%, #A78BFA 100%)",
@@ -120,7 +120,7 @@ function ResultCard({ result, salary }: { result: SalaryResult; salary: number }
           You are in the
         </p>
         <p
-          className="text-gradient-1 font-black leading-none glow-amber"
+          className="text-gradient-1 font-semibold leading-none"
           style={{ fontSize: "clamp(56px, 14vw, 96px)" }}
         >
           TOP {Math.round(100 - result.nationalPercentile)}%
@@ -190,13 +190,13 @@ function ResultCard({ result, salary }: { result: SalaryResult; salary: number }
         </a>
 
         <div className="pt-3 border-t" style={{ borderColor: "var(--border-subtle, rgba(255,255,255,0.06))" }}>
-          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>Related tools</p>
+          <p className="text-xs font-bold mb-2" style={{ color: "var(--text-muted)" }}>Related tools</p>
           <div className="flex flex-col gap-2">
             <a href="https://netpaytool.com" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
-              NetPayTool — see your after-tax take-home by state &rarr;
+              NetPayTool: see your after-tax take-home by state &rarr;
             </a>
             <a href="https://networthrank.com" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
-              NetWorthRank — where does your salary put your net worth? &rarr;
+              NetWorthRank: where does your salary put your net worth? &rarr;
             </a>
           </div>
         </div>
@@ -214,7 +214,7 @@ function AffiliateCTA({ route }: { route: SalaryRouteResult }) {
         border: `1px solid ${route.colorHex}40`,
       }}
     >
-      <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: route.colorHex }}>
+      <p className="text-xs font-bold mb-1" style={{ color: route.colorHex }}>
         {route.showCalcMoneyOS ? "For $250K+ earners" : "Invest your surplus"}
       </p>
       <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
@@ -243,7 +243,7 @@ function LiveSalaryContext() {
   }, []);
   if (!cpi) return null;
   return (
-    <div className="mb-5 rounded-lg px-4 py-2.5 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[11px] font-mono" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+    <div className="mb-5 rounded-lg px-4 py-2.5 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs font-mono" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
       <span className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.35)" }}>
         <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#D4AF37", display: "inline-block", boxShadow: "0 0 4px #D4AF37" }} />
         LIVE
@@ -315,10 +315,10 @@ export default function Calculator({
       {/* Form */}
       <div className="aura-panel p-6">
         <div className="flex items-center justify-between pb-4 mb-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.45)" }}>
+          <span className="text-xs font-mono font-bold" style={{ color: "rgba(255,255,255,0.45)" }}>
             Salary Rank Calculator
           </span>
-          <span className="inline-flex items-center gap-1 text-[8px] font-mono tracking-wide rounded px-1.5 py-0.5"
+          <span className="inline-flex items-center gap-1 text-xs font-mono rounded px-1.5 py-0.5"
             style={{ color: "var(--color-accent)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block" }} />
             Live data
@@ -338,7 +338,7 @@ export default function Calculator({
               onChange={(e) => setSalaryInput(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(212,175,55,0.20)",

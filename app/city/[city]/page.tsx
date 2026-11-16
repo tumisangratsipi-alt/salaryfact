@@ -23,7 +23,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${city.name} Average Salary & Percentile Calculator — Where Do You Rank?`,
+    title: `${city.name} Average Salary & Percentile Calculator: Where Do You Rank?`,
     description: `See where your salary ranks in ${city.name}. The average (median) salary in ${city.name} is ${formatCurrency(city.medianSalary)}. Compare yourself against ${city.name} workers using BLS OEWS May 2025 data.`,
     alternates: {
       canonical: `https://salaryfact.com/city/${slug}`,
@@ -191,7 +191,7 @@ export default async function CityPage({
         {/* Hero */}
         <div className="mb-8">
           <h1
-            className="font-black mb-3 leading-tight"
+            className="font-semibold mb-3 leading-tight"
             style={{ fontSize: "clamp(24px, 5vw, 38px)" }}
           >
             {city.name} Salary Percentile
@@ -216,7 +216,7 @@ export default async function CityPage({
         >
           <div className="flex-1 text-center">
             <p className="text-xs terminal-label mb-1">{city.name} median</p>
-            <p className="text-2xl font-black tabular-gold">
+            <p className="text-2xl font-semibold tabular-gold">
               {formatCurrency(city.medianSalary)}
             </p>
           </div>
@@ -226,7 +226,7 @@ export default async function CityPage({
           />
           <div className="flex-1 text-center">
             <p className="text-xs terminal-label mb-1">National median</p>
-            <p className="text-2xl font-black" style={{ color: "var(--text-muted)" }}>
+            <p className="text-2xl font-semibold" style={{ color: "var(--text-muted)" }}>
               {formatCurrency(NATIONAL_MEDIAN)}
             </p>
           </div>
@@ -237,7 +237,7 @@ export default async function CityPage({
           <div className="flex-1 text-center">
             <p className="text-xs terminal-label mb-1">vs national</p>
             <p
-              className="text-2xl font-black"
+              className="text-2xl font-semibold"
               style={{
                 color:
                   city.medianSalary >= NATIONAL_MEDIAN
@@ -257,7 +257,7 @@ export default async function CityPage({
         {/* Data table */}
         <section className="mt-10">
           <h2 className="text-lg font-bold mb-4">
-            {city.name} salary percentiles — May 2025
+            {city.name} salary percentiles: May 2025
           </h2>
           <div
             className="overflow-x-auto rounded-xl"
@@ -340,7 +340,7 @@ export default async function CityPage({
           }}
         >
           <p
-            className="text-xs font-bold uppercase tracking-wider mb-2"
+            className="text-xs font-bold mb-2"
             style={{ color: "var(--amber-500)" }}
           >
             Key insight
@@ -359,7 +359,7 @@ export default async function CityPage({
         {/* FAQ */}
         <section className="mt-12">
           <h2 className="text-xl font-bold mb-6">
-            {city.name} salary — frequently asked questions
+            {city.name} salary: frequently asked questions
           </h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
