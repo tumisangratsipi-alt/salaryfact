@@ -31,7 +31,7 @@ export async function generateMetadata({
   const median = STATE_MEDIAN_SALARIES[code] ?? NATIONAL_MEDIAN;
 
   return {
-    title: `${name} Average Salary & Percentile Calculator — Where Do You Rank?`,
+    title: `${name} Average Salary & Percentile Calculator: Where Do You Rank?`,
     description: `See where your salary ranks in ${name}. The average (median) salary in ${name} is ${formatCurrency(median)}. Compare yourself against all ${name} workers using BLS OEWS May 2025 data.`,
     alternates: {
       canonical: `https://salaryfact.com/state/${slug}`,
@@ -104,7 +104,7 @@ const STATE_CONTENT: Record<string, { intro: string; keyInsight: string; faqs: {
   },
   WA: {
     intro: "Washington State has the highest minimum wage in the country and a strong technology sector anchored by Amazon, Microsoft, and a dense startup ecosystem. No state income tax makes take-home pay favorable for high earners.",
-    keyInsight: `Washington has no state income tax, and its state median of ${formatCurrency(STATE_MEDIAN_SALARIES.WA)} is among the highest in the US — 25% above the national median, driven by Seattle tech wages.`,
+    keyInsight: `Washington has no state income tax, and its state median of ${formatCurrency(STATE_MEDIAN_SALARIES.WA)} is among the highest in the US: 25% above the national median, driven by Seattle tech wages.`,
     faqs: [
       { q: "What is the median salary in Washington State?", a: `The median annual salary in Washington State is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.WA)} based on May 2025 BLS data, well above the national median. The Seattle metro, anchored by Amazon and Microsoft, drives wages significantly higher than eastern Washington or smaller cities.` },
       { q: "What salary do you need in Seattle?", a: "Financial planners suggest $90,000-$110,000 for comfortable single living in Seattle without roommates. The city's tech boom has driven rents to $2,500-$3,500/month for a one-bedroom. In Spokane or Yakima, $60,000-$70,000 provides a comparable lifestyle at lower cost." },
@@ -127,13 +127,13 @@ const STATE_CONTENT: Record<string, { intro: string; keyInsight: string; faqs: {
     keyInsight: `Illinois has a flat 4.95% state income tax. Chicago's median wage is roughly 20% above the state median of ${formatCurrency(STATE_MEDIAN_SALARIES.IL)}, reflecting the economic concentration in the metro area.`,
     faqs: [
       { q: "What is the median salary in Illinois?", a: `The median annual salary in Illinois is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.IL)} based on May 2025 BLS data. Chicago dominates the state economy, and its higher wages lift the state median well above downstate Illinois, where wages align more closely with Midwest averages.` },
-      { q: "What is considered a good salary in Chicago?", a: "In Chicago, $75,000-$85,000 is considered a comfortable single salary. Chicago's cost of living is lower than New York or San Francisco but higher than most Midwest cities. Housing costs are the primary differentiator — downtown Chicago is expensive, while suburbs and neighborhoods further from the loop offer more value." },
+      { q: "What is considered a good salary in Chicago?", a: "In Chicago, $75,000-$85,000 is considered a comfortable single salary. Chicago's cost of living is lower than New York or San Francisco but higher than most Midwest cities. Housing costs are the primary differentiator: downtown Chicago is expensive, while suburbs and neighborhoods further from the loop offer more value." },
       { q: "How does Illinois compare to other Midwest states for salaries?", a: "Illinois has the highest median salary of the major Midwest states, driven by Chicago's finance, tech, and healthcare sectors. Minnesota ($64,000 median) and Ohio ($54,000 median) are common comparisons. Illinois wages are competitive nationally but the combination of state income tax and cost of living in Chicago reduces effective purchasing power." },
       { q: "What are the highest-paying industries in Illinois?", a: "Finance and insurance (particularly commodities trading on the CME), healthcare, technology, and manufacturing are the top-paying industries in Illinois. The Chicago Board of Trade and Chicago Mercantile Exchange create high concentrations of finance workers earning $100,000-$500,000+. Tech salaries in Chicago have also grown rapidly over the past decade." },
     ],
   },
   PA: {
-    intro: "Pennsylvania has a flat 3.07% state income tax — one of the lowest flat rates in the US. The economy spans healthcare, education, finance, and manufacturing, with Philadelphia and Pittsburgh as the primary economic centers.",
+    intro: "Pennsylvania has a flat 3.07% state income tax: one of the lowest flat rates in the US. The economy spans healthcare, education, finance, and manufacturing, with Philadelphia and Pittsburgh as the primary economic centers.",
     keyInsight: `Pennsylvania's 3.07% flat income tax is one of the lowest in states that have income tax. The state median of ${formatCurrency(STATE_MEDIAN_SALARIES.PA)} sits near the national median, with Philadelphia wages running 20% higher.`,
     faqs: [
       { q: "What is the median salary in Pennsylvania?", a: `The median annual salary in Pennsylvania is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.PA)} based on May 2025 BLS data, close to the national median. Philadelphia and Pittsburgh have higher wages than rural central Pennsylvania, where manufacturing and agriculture wages pull the median down.` },
@@ -148,7 +148,7 @@ const STATE_CONTENT: Record<string, { intro: string; keyInsight: string; faqs: {
     faqs: [
       { q: "What is the median salary in Ohio?", a: `The median annual salary in Ohio is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.OH)} based on May 2025 BLS data, below the national median of ${formatCurrency(NATIONAL_MEDIAN)}. However, Ohio's cost of living index runs 10-15% below the national average, which offsets some of the wage differential.` },
       { q: "What is considered a good salary in Columbus?", a: "Columbus is Ohio's fastest-growing city and has seen significant wage growth. A salary of $60,000-$70,000 provides comfortable living in Columbus. Columbus attracts tech companies like JPMorgan's technology operations and Amazon fulfillment, raising local wages above the Ohio state median." },
-      { q: "How does the cost of living in Ohio compare to national averages?", a: "Ohio's cost of living runs 10-15% below the national average. Housing is particularly affordable — median home prices in Cleveland and Columbus run 40-60% below national medians. This means a $54,000 salary in Ohio can provide a standard of living comparable to $60,000-$65,000 in higher-cost states." },
+      { q: "How does the cost of living in Ohio compare to national averages?", a: "Ohio's cost of living runs 10-15% below the national average. Housing is particularly affordable: median home prices in Cleveland and Columbus run 40-60% below national medians. This means a $54,000 salary in Ohio can provide a standard of living comparable to $60,000-$65,000 in higher-cost states." },
       { q: "What are the best-paying cities in Ohio?", a: "Columbus has the highest median wages in Ohio, driven by tech, finance, and government employment. Dublin (a Columbus suburb) hosts major insurance companies. Cleveland's healthcare sector (Cleveland Clinic is one of the largest employers) offers strong wages. Cincinnati's proximity to Northern Kentucky tech growth is boosting wages there." },
     ],
   },
@@ -157,7 +157,7 @@ const STATE_CONTENT: Record<string, { intro: string; keyInsight: string; faqs: {
     keyInsight: `Atlanta's film, logistics, tech, and corporate headquarters create wage concentration well above the Georgia state median of ${formatCurrency(STATE_MEDIAN_SALARIES.GA)}. Georgia is a growing relocation destination for businesses and workers from higher-cost states.`,
     faqs: [
       { q: "What is the median salary in Georgia?", a: `The median annual salary in Georgia is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.GA)} based on May 2025 BLS data. Atlanta's concentration of Fortune 500 headquarters and growing tech sector pulls the metro median higher, while rural Georgia averages much lower.` },
-      { q: "What is a good salary in Atlanta?", a: "In Atlanta, $65,000-$75,000 provides comfortable single living. Atlanta's cost of living is meaningfully lower than coastal metros — median one-bedroom apartments run $1,600-$2,200 in popular in-town neighborhoods. Suburban Atlanta offers significantly lower housing costs." },
+      { q: "What is a good salary in Atlanta?", a: "In Atlanta, $65,000-$75,000 provides comfortable single living. Atlanta's cost of living is meaningfully lower than coastal metros: median one-bedroom apartments run $1,600-$2,200 in popular in-town neighborhoods. Suburban Atlanta offers significantly lower housing costs." },
       { q: "Why do companies move to Georgia?", a: "Georgia offers a favorable business climate with competitive tax incentives, a major international airport, and relatively affordable real estate. Film and entertainment production credits have attracted a large media industry. Tech companies including Microsoft, Apple, and numerous startups have expanded Atlanta operations. These corporate relocations drive salary growth across the metro." },
       { q: "How does Georgia income tax work?", a: "Georgia has a flat 5.75% state income tax rate on earned income. Georgia exempts retirement income from state taxation for residents 62 and older, up to $35,000 per person. This makes Georgia an attractive retirement destination for those with pension or retirement account income." },
     ],
@@ -168,7 +168,7 @@ const STATE_CONTENT: Record<string, { intro: string; keyInsight: string; faqs: {
     faqs: [
       { q: "What is the median salary in North Carolina?", a: `The median annual salary in North Carolina is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.NC)} based on May 2025 BLS data. The Research Triangle (Raleigh-Durham) and Charlotte are significantly above the state median, while rural western North Carolina and smaller metros are well below it.` },
       { q: "Is North Carolina good for tech workers?", a: "Yes. The Research Triangle (home to NC State, Duke, and UNC) has a strong tech and life sciences ecosystem. Companies including Cisco, SAS, Red Hat, and numerous biotech firms cluster here. Tech salaries in the Triangle run 30-40% above the state median and are growing faster than most other metros in the Southeast." },
-      { q: "What is a good salary in Charlotte?", a: "Charlotte is a major banking hub, home to Bank of America's headquarters and Wells Fargo's East Coast operations. A salary of $65,000-$75,000 provides comfortable single living in Charlotte. The city's cost of living is moderate — lower than Atlanta or Dallas — but rising rapidly as inbound migration drives up housing costs." },
+      { q: "What is a good salary in Charlotte?", a: "Charlotte is a major banking hub, home to Bank of America's headquarters and Wells Fargo's East Coast operations. A salary of $65,000-$75,000 provides comfortable single living in Charlotte. The city's cost of living is moderate (lower than Atlanta or Dallas) but rising rapidly as inbound migration drives up housing costs." },
       { q: "How is North Carolina reducing its income tax?", a: "North Carolina has been progressively reducing its flat state income tax rate. Starting at 5.25% in recent years, the rate has been cut to 4.75% and is scheduled to decrease to 2.49% by 2030 under current legislation. This makes North Carolina increasingly attractive for high earners compared to neighboring states with static tax rates." },
     ],
   },
@@ -179,25 +179,25 @@ const STATE_CONTENT: Record<string, { intro: string; keyInsight: string; faqs: {
       { q: "What is the median salary in Michigan?", a: `The median annual salary in Michigan is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.MI)} based on May 2025 BLS data. Michigan's median has been recovering as the automotive industry has modernized and tech employment has grown, particularly in Ann Arbor, Grand Rapids, and the Detroit suburbs.` },
       { q: "What do automotive workers earn in Michigan?", a: "Michigan's automotive industry remains a significant employer. UAW members at Ford, GM, and Stellantis earn $35-$45/hour in base wages after recent contract increases, translating to $70,000-$90,000 annually for full-time workers. Engineers and software developers working on autonomous vehicles and EV technology earn $100,000-$180,000." },
       { q: "How is Michigan's tech sector growing?", a: "Michigan's tech sector has grown substantially, particularly in Ann Arbor (home to University of Michigan) and the Detroit suburbs. Quicken Loans/Rocket Companies, Ford's software division, GM's Cruise autonomous vehicle unit, and a cluster of startups have created technology hubs. Ann Arbor's median tech salary runs 40-50% above the state median." },
-      { q: "What is a good salary in Detroit?", a: "In metropolitan Detroit, $60,000-$70,000 provides comfortable single living. Detroit proper has low housing costs relative to its size — median home prices remain accessible. The suburban communities of Rochester Hills, Troy, and Livonia are more expensive but still competitive with major coastal metros." },
+      { q: "What is a good salary in Detroit?", a: "In metropolitan Detroit, $60,000-$70,000 provides comfortable single living. Detroit proper has low housing costs relative to its size: median home prices remain accessible. The suburban communities of Rochester Hills, Troy, and Livonia are more expensive but still competitive with major coastal metros." },
     ],
   },
   AZ: {
-    intro: "Arizona has a flat 2.5% income tax — one of the lowest flat rates in the US — and a fast-growing economy driven by semiconductor manufacturing, technology, and finance operations that have relocated from California.",
+    intro: "Arizona has a flat 2.5% income tax (one of the lowest flat rates in the US) and a fast-growing economy driven by semiconductor manufacturing, technology, and finance operations that have relocated from California.",
     keyInsight: `Arizona's 2.5% flat income tax is among the lowest in states that have income tax. Phoenix is experiencing significant corporate relocation from California, pushing the state median of ${formatCurrency(STATE_MEDIAN_SALARIES.AZ)} upward.`,
     faqs: [
       { q: "What is the median salary in Arizona?", a: `The median annual salary in Arizona is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.AZ)} based on May 2025 BLS data. Phoenix dominates the Arizona economy. Tucson's university economy and border economy are well below the Phoenix metro median, while Scottsdale runs above it.` },
       { q: "Why are companies moving to Phoenix?", a: "Phoenix offers lower costs, abundant land, and a business-friendly tax environment compared to California. TSMC is building two semiconductor fabs near Phoenix, Intel has a major campus, and dozens of finance, tech, and logistics firms have relocated. This corporate inflow is raising Phoenix wages faster than most US metros." },
-      { q: "What is Arizona's income tax rate?", a: "Arizona reduced its state income tax to a flat 2.5% in 2023. Previously Arizona had a graduated rate system. The flat 2.5% rate means high earners benefit most from Arizona's tax structure — someone earning $200,000 saves $10,000+ compared to California's top marginal rate." },
+      { q: "What is Arizona's income tax rate?", a: "Arizona reduced its state income tax to a flat 2.5% in 2023. Previously Arizona had a graduated rate system. The flat 2.5% rate means high earners benefit most from Arizona's tax structure: someone earning $200,000 saves $10,000+ compared to California's top marginal rate." },
       { q: "What is a good salary in Phoenix?", a: "In Phoenix, $65,000-$75,000 provides comfortable single living. Housing has become more expensive due to population inflow, but remains 30-40% below comparable California metros. The tech salary premium in Phoenix has grown as semiconductor and tech employers compete for workers." },
     ],
   },
   TN: {
-    intro: "Tennessee has no state income tax on wages — only a Hall Tax on investment income, which was fully repealed in 2021. Nashville and Memphis are the primary metros, with significant healthcare, music, and logistics sectors.",
+    intro: "Tennessee has no state income tax on wages: only a Hall Tax on investment income, which was fully repealed in 2021. Nashville and Memphis are the primary metros, with significant healthcare, music, and logistics sectors.",
     keyInsight: `Tennessee has no state income tax on wages. The state median of ${formatCurrency(STATE_MEDIAN_SALARIES.TN)} is below the national median, but the tax advantage significantly improves effective purchasing power for residents.`,
     faqs: [
       { q: "What is the median salary in Tennessee?", a: `The median annual salary in Tennessee is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.TN)} based on May 2025 BLS data, below the national median. The no-income-tax advantage partially offsets lower gross wages. Nashville's healthcare and entertainment sector wages are significantly above the state median.` },
-      { q: "What is Nashville's economy based on?", a: "Nashville is the healthcare industry capital of the US by number of headquarters — HCA Healthcare, Community Health Systems, and dozens of healthcare companies are based there. Healthcare IT and music industry are also major employers. Nashville wages in healthcare and tech run 25-35% above the Tennessee state median." },
+      { q: "What is Nashville's economy based on?", a: "Nashville is the healthcare industry capital of the US by number of headquarters: HCA Healthcare, Community Health Systems, and dozens of healthcare companies are based there. Healthcare IT and music industry are also major employers. Nashville wages in healthcare and tech run 25-35% above the Tennessee state median." },
       { q: "What is a good salary in Nashville?", a: "Nashville's rapid growth has pushed housing costs significantly higher. A salary of $65,000-$75,000 is recommended for comfortable single living in Nashville today. The metro's population growth from inbound migration from higher-cost states has raised rents and home prices faster than wages in many sectors." },
       { q: "Does Tennessee have any state income taxes?", a: "Tennessee has no state income tax on wages or salaries. Tennessee previously had the Hall Tax on investment income (dividends and interest), but that was fully repealed effective January 1, 2021. Tennessee relies primarily on sales tax, which at 7% is one of the highest in the US, partially offsetting the income tax advantage for lower earners." },
     ],
@@ -206,7 +206,7 @@ const STATE_CONTENT: Record<string, { intro: string; keyInsight: string; faqs: {
     intro: "Minnesota has a progressive state income tax with a top rate of 9.85% and one of the most robust social safety nets in the country. The Minneapolis-St. Paul metro is a major corporate hub with Target, UnitedHealth Group, 3M, and dozens of Fortune 500 companies.",
     keyInsight: `Minnesota has high income taxes but also high wages. The state median of ${formatCurrency(STATE_MEDIAN_SALARIES.MN)} is 8% above the national median, and Minneapolis' concentration of Fortune 500 companies drives above-average professional salaries.`,
     faqs: [
-      { q: "What is the median salary in Minnesota?", a: `The median annual salary in Minnesota is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.MN)} based on May 2025 BLS data, above the national median. The Minneapolis-St. Paul metro dominates — Target, UnitedHealth, Medtronic, 3M, and US Bancorp create a dense cluster of high-paying corporate jobs.` },
+      { q: "What is the median salary in Minnesota?", a: `The median annual salary in Minnesota is approximately ${formatCurrency(STATE_MEDIAN_SALARIES.MN)} based on May 2025 BLS data, above the national median. The Minneapolis-St. Paul metro dominates: Target, UnitedHealth, Medtronic, 3M, and US Bancorp create a dense cluster of high-paying corporate jobs.` },
       { q: "What is a good salary in Minneapolis?", a: "In Minneapolis, $70,000-$80,000 provides comfortable single living. Minneapolis has a lower cost of living than coastal metros but higher than many Midwest cities. The city's high concentration of large employers maintains wage levels well above the national median for professional roles." },
       { q: "How much income tax do you pay in Minnesota?", a: "Minnesota has one of the most progressive state income tax structures in the US. The rate starts at 5.35% and rises to 9.85% on income above $183,340 for single filers (2024). This is among the highest state marginal rates nationally, which is a factor for high earners considering relocation." },
       { q: "What industries pay the most in Minnesota?", a: "Healthcare (led by Mayo Clinic and UnitedHealth Group, the largest US health insurer), medical devices (Medtronic), retail and supply chain (Target), financial services (US Bancorp), and technology are Minnesota's highest-paying industries. These sectors collectively employ a significant portion of Minnesota's above-median earners." },
@@ -388,7 +388,7 @@ export default async function StatePage({
 
         {/* Hero */}
         <div className="mb-8">
-          <h1 className="font-black mb-3 leading-tight" style={{ fontSize: "clamp(24px, 5vw, 38px)" }}>
+          <h1 className="font-semibold mb-3 leading-tight" style={{ fontSize: "clamp(24px, 5vw, 38px)" }}>
             {name} Salary Percentile
             <br />
             <span className="text-gradient-1">Calculator</span>
@@ -404,7 +404,7 @@ export default async function StatePage({
         {/* Data table */}
         <section className="mt-10">
           <h2 className="text-lg font-bold mb-4">
-            {name} salary percentiles — May 2025
+            {name} salary percentiles: May 2025
           </h2>
           <div className="overflow-x-auto rounded-xl" style={{ border: "1px solid var(--border-subtle)" }}>
             <table className="w-full text-sm">
@@ -452,7 +452,7 @@ export default async function StatePage({
           className="mt-8 p-5 rounded-xl"
           style={{ background: "rgba(212,175,55,0.06)", border: "1px solid rgba(212,175,55,0.25)" }}
         >
-          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "var(--amber-500)" }}>
+          <p className="text-xs font-bold mb-2" style={{ color: "var(--amber-500)" }}>
             Key insight
           </p>
           <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
@@ -462,7 +462,7 @@ export default async function StatePage({
 
         {/* FAQ */}
         <section className="mt-12">
-          <h2 className="text-xl font-bold mb-6">{name} salary — frequently asked questions</h2>
+          <h2 className="text-xl font-bold mb-6">{name} salary: frequently asked questions</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <div key={i} className="aura-panel p-5">

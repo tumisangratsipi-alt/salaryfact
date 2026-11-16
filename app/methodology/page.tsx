@@ -4,7 +4,7 @@ import Link from "next/link";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "Methodology — Salary Percentile Calculator",
+  title: "Methodology: Salary Percentile Calculator",
   description:
     "How we calculate salary percentiles. Data source (BLS OEWS 2024), interpolation method, state adjustments, and limitations.",
   alternates: {
@@ -48,7 +48,7 @@ export default function MethodologyPage() {
           &larr; Back to calculator
         </Link>
 
-        <h1 className="text-3xl font-black mb-2">Methodology</h1>
+        <h1 className="text-3xl font-semibold mb-2">Methodology</h1>
         <p className="text-sm mb-10" style={{ color: "var(--text-muted)" }}>
           How this calculator works and where the data comes from.
         </p>

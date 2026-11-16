@@ -18,7 +18,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Salary & Income Percentile Calculator — Where Does Your Pay Rank?",
+  title: "Salary & Income Percentile Calculator: Where Does Your Pay Rank?",
   description:
     "Find out what percentile your salary or income is in nationally and by state. See how your average pay compares to the median. All 50 states. Free, no sign-up.",
   metadataBase: new URL("https://salaryfact.com"),

@@ -27,7 +27,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${category.label} Salary Percentile Calculator — Where Do You Rank?`,
+    title: `${category.label} Salary Percentile Calculator: Where Do You Rank?`,
     description: `See where your salary ranks among ${category.label} workers. The median salary for ${category.label} is ${formatCurrency(category.median)}. Compare yourself using BLS OEWS May 2025 data.`,
     alternates: {
       canonical: `https://salaryfact.com/category/${slug}`,
@@ -168,7 +168,7 @@ export default async function CategoryPage({
 
         {/* Hero */}
         <div className="mb-8">
-          <h1 className="font-black mb-3 leading-tight" style={{ fontSize: "clamp(24px, 5vw, 38px)" }}>
+          <h1 className="font-semibold mb-3 leading-tight" style={{ fontSize: "clamp(24px, 5vw, 38px)" }}>
             {category.label} Salary Percentile
             <br />
             <span className="text-gradient-1">Calculator</span>
@@ -184,7 +184,7 @@ export default async function CategoryPage({
         {/* Data table */}
         <section className="mt-10">
           <h2 className="text-lg font-bold mb-4">
-            {category.label} salary percentiles — May 2025
+            {category.label} salary percentiles: May 2025
           </h2>
           <div className="overflow-x-auto rounded-xl" style={{ border: "1px solid var(--border-subtle)" }}>
             <table className="w-full text-sm">
@@ -232,7 +232,7 @@ export default async function CategoryPage({
           className="mt-8 p-5 rounded-xl"
           style={{ background: "rgba(212,175,55,0.06)", border: "1px solid rgba(212,175,55,0.25)" }}
         >
-          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "var(--amber-500)" }}>
+          <p className="text-xs font-bold mb-2" style={{ color: "var(--amber-500)" }}>
             Key insight
           </p>
           <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
@@ -242,7 +242,7 @@ export default async function CategoryPage({
 
         {/* FAQ */}
         <section className="mt-12">
-          <h2 className="text-xl font-bold mb-6">{category.label} salary — frequently asked questions</h2>
+          <h2 className="text-xl font-bold mb-6">{category.label} salary: frequently asked questions</h2>
           <div className="space-y-4">
             {content.faqs.map((faq, i) => (
               <div key={i} className="aura-panel p-5">
