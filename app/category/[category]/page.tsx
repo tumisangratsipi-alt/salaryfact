@@ -41,7 +41,7 @@ export async function generateMetadata({
 }
 
 // Salary percentile table breakpoints (national, used as reference).
-// Real BLS OEWS May 2025 "All Occupations" figures — see lib/salary-data.ts
+// Real BLS OEWS May 2025 "All Occupations" figures; see lib/salary-data.ts
 // for source URLs and why this stops at the 90th percentile (OEWS's
 // standard table doesn't publish a 95th or 99th percentile wage).
 const TABLE_POINTS = [

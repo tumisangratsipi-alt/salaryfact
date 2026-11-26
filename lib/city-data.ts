@@ -1,5 +1,5 @@
 // ============================================================
-// CITY SALARY DATA — BLS OEWS May 2025 (real, verified)
+// CITY SALARY DATA: BLS OEWS May 2025 (real, verified)
 // salaryfact.com
 // 181 US metros
 //

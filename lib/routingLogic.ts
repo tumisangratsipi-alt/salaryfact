@@ -1,4 +1,4 @@
-// lib/routingLogic.ts — salaryfact.com
+// lib/routingLogic.ts (salaryfact.com)
 
 export const CALCMONEY_GOLD = "#D4AF37" as const;
 
@@ -17,7 +17,7 @@ export interface SalaryRouteResult {
 
 /**
  * >= $250k → CalcMoney OS (HNW)
- * $75k–$250k → SoFi Invest (investing surplus)
+ * $75k to $250k → SoFi Invest (investing surplus)
  * < $75k → Rocket Money (budgeting + savings)
  */
 export function resolveSalaryRoute(annualSalary: number): SalaryRouteResult {
@@ -25,7 +25,7 @@ export function resolveSalaryRoute(annualSalary: number): SalaryRouteResult {
     return {
       showCalcMoneyOS: true,
       url: "https://calcmoney.io/os",
-      label: "Get the Family Office OS — $99",
+      label: "Get the Family Office OS: $99",
       sublabel:
         "At your income level, entity structuring, tax optimization, and wealth tracking pay for themselves. Built for top earners.",
       colorHex: CALCMONEY_GOLD,
@@ -46,7 +46,7 @@ export function resolveSalaryRoute(annualSalary: number): SalaryRouteResult {
   return {
     showCalcMoneyOS: false,
     url: URLS.rocketMoney,
-    label: "Track Every Dollar — Rocket Money",
+    label: "Track Every Dollar: Rocket Money",
     sublabel:
       "See exactly where your paycheck goes, cancel unused subscriptions, and build a savings buffer.",
     colorHex: "#22C55E",
