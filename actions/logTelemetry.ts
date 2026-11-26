@@ -1,6 +1,6 @@
 "use server";
 
-// actions/logTelemetry.ts — salaryfact.com
+// actions/logTelemetry.ts (salaryfact.com)
 
 import { createClient } from "@supabase/supabase-js";
 

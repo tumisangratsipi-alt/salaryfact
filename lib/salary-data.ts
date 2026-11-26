@@ -1,5 +1,5 @@
 // ============================================================
-// SALARY PERCENTILE DATA — BLS OEWS May 2025 (real, verified)
+// SALARY PERCENTILE DATA: BLS OEWS May 2025 (real, verified)
 // salaryfact.com
 //
 // Source: BLS Occupational Employment and Wage Statistics, May 2025
@@ -10,9 +10,9 @@
 // Downloaded and parsed directly, not estimated. Replaces a prior version
 // of this file whose NATIONAL_MEDIAN ($59,000), percentile breakpoints,
 // all 51 state medians, and all 15 JOB_CATEGORIES medians were invented
-// placeholder figures, not real BLS output — audited and rebuilt
+// placeholder figures, not real BLS output, audited and rebuilt
 // 2026-08-31 (national/state figures first, JOB_CATEGORIES in a same-day
-// follow-up pass — see that constant's own comment for its sourcing,
+// follow-up pass; see that constant's own comment for its sourcing,
 // which needed a second BLS file).
 // ============================================================
 
@@ -20,7 +20,7 @@ export const NATIONAL_MEDIAN = 50980;
 
 // Real BLS OEWS national annual wage percentiles for "All Occupations".
 // OEWS's standard cross-industry table only publishes 10th/25th/median/
-// 75th/90th — there is no real BLS figure for a 95th or 99th percentile
+// 75th/90th, there is no real BLS figure for a 95th or 99th percentile
 // wage in this dataset, so this file no longer invents ones. A "top 1%"
 // feature would need a distinct, separately-labeled source (e.g. IRS SOI
 // AGI percentiles), not a number bolted onto this table.
@@ -32,7 +32,7 @@ const NATIONAL_PERCENTILES: Record<string, number> = {
   p90: 128560,
 };
 
-// Ordered breakpoints for interpolation. Capped at the real p90 anchor —
+// Ordered breakpoints for interpolation. Capped at the real p90 anchor, 
 // see the comment on NATIONAL_PERCENTILES for why there's nothing above it.
 const BREAKPOINTS: Array<{ percentile: number; salary: number }> = [
   { percentile: 0, salary: 0 },
@@ -78,18 +78,18 @@ export const STATE_NAMES: Record<string, string> = {
 // rather than left as a guessed number. Source: same national file as
 // NATIONAL_MEDIAN (OCC_CODE column), plus a second real BLS file for
 // "government" specifically, since government is an ownership/sector
-// classification, not an occupation family — no SOC group represents it:
+// classification, not an occupation family, no SOC group represents it:
 // https://www.bls.gov/oes/special-requests/oesm25in4.zip,
 // national_owner_M2025_dl.xlsx, OWN_CODE 123 ("Federal, State, and
 // Local Government... OEWS Designation"), All Occupations row.
 //
 //   technology     -> SOC 15-0000 Computer and Mathematical Occupations
 //   healthcare     -> SOC 29-0000 Healthcare Practitioners and Technical
-//                      Occupations (the professional/clinical tier —
+//                      Occupations (the professional/clinical tier, 
 //                      support roles sit in a separate, lower-paid SOC
 //                      major group, 31-0000, not blended in here)
 //   finance        -> SOC 13-2000 Financial Specialists (accountants,
-//                      analysts — tighter match than the broader
+//                      analysts, tighter match than the broader
 //                      13-0000 Business and Financial Operations major
 //                      group, which also covers HR/logistics roles)
 //   education      -> SOC 25-0000 Educational Instruction and Library
@@ -99,7 +99,7 @@ export const STATE_NAMES: Record<string, string> = {
 //                      drafters/surveying techs that sit in the same
 //                      17-0000 major group but aren't "engineering")
 //   sales          -> SOC 41-4000 Sales Representatives, Wholesale and
-//                      Manufacturing — a professional B2B sales anchor,
+//                      Manufacturing: a professional B2B sales anchor,
 //                      deliberately distinct from the "retail" category
 //                      below. "Marketing" itself has no dedicated SOC
 //                      group and isn't separately represented here.
@@ -116,7 +116,7 @@ export const STATE_NAMES: Record<string, string> = {
 //   government     -> All Occupations, Federal+State+Local government
 //                      ownership combined (see file/OWN_CODE note above)
 //   other          -> SOC 00-0000 All Occupations (same figure as
-//                      NATIONAL_MEDIAN — the honest anchor for a
+//                      NATIONAL_MEDIAN: the honest anchor for a
 //                      residual/unspecified bucket)
 export const JOB_CATEGORIES: Record<string, { label: string; median: number }> = {
   technology: { label: "Technology & Software", median: 109280 },
@@ -165,7 +165,7 @@ export function formatPercent(n: number): string {
 export function calculateNationalPercentile(salary: number): number {
   if (salary <= 0) return 0;
   // Real BLS OEWS data tops out at the 90th percentile anchor (see
-  // NATIONAL_PERCENTILES above) — anything at or above it is honestly
+  // NATIONAL_PERCENTILES above): anything at or above it is honestly
   // "90th percentile or higher," not a fabricated 95th/99th.
   if (salary >= BREAKPOINTS[BREAKPOINTS.length - 1].salary) return 90;
 
@@ -193,7 +193,7 @@ export function calculateStatePercentile(salary: number, stateCode: string): num
 
 export function getPercentileLabel(percentile: number): string {
   // 90 is the real ceiling calculateNationalPercentile/calculateStatePercentile
-  // can return now (see BREAKPOINTS) — no fabricated tiers above it.
+  // can return now (see BREAKPOINTS), no fabricated tiers above it.
   if (percentile >= 90) return "Top 10%";
   if (percentile >= 75) return "Top 25%";
   if (percentile >= 60) return "Above Average";

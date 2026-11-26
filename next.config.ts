@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     return [
       // Google has "new-york" indexed with real search volume (confirmed via
       // GSC: 298 impressions, the single highest of any page on the site) but
-      // it was never a real route — the actual slug is "new-york-city". "New
+      // it was never a real route, the actual slug is "new-york-city". "New
       // York" alone unambiguously means the city (unlike "kansas"/"oklahoma"/
       // "iowa", which collide with their /state/ pages), so this consolidates
       // real indexed signal onto the canonical page instead of 200-ing a
@@ -32,14 +32,14 @@ const nextConfig: NextConfig = {
 
   async headers() {
     return [
-      // Static assets — 1 year, immutable
+      // Static assets: 1 year, immutable
       {
         source: "/_next/static/(.*)",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
-      // All pages — security headers
+      // All pages: security headers
       {
         source: "/(.*)",
         headers: [

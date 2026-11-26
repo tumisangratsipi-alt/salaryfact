@@ -45,7 +45,7 @@ export async function generateMetadata({
 }
 
 // Salary percentile table breakpoints (national, used as reference).
-// Real BLS OEWS May 2025 "All Occupations" figures — see lib/salary-data.ts
+// Real BLS OEWS May 2025 "All Occupations" figures; see lib/salary-data.ts
 // for the source URLs and why this stops at the 90th percentile (OEWS's
 // standard table doesn't publish a 95th or 99th percentile wage).
 const TABLE_POINTS = [
@@ -311,7 +311,7 @@ export default async function StatePage({
   const median = STATE_MEDIAN_SALARIES[code] ?? NATIONAL_MEDIAN;
   const content = STATE_CONTENT[code] ?? getGenericContent(code);
 
-  // Real searchers ask "average salary in X," not "median" — BLS only reports
+  // Real searchers ask "average salary in X," not "median", BLS only reports
   // median, so this answers the literal query phrasing honestly rather than
   // silently treating the two as identical. Appended once here (not hand-written
   // per state) so it covers every state, including the ~30 generic-content ones.

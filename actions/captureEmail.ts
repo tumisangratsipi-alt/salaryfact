@@ -1,6 +1,6 @@
 "use server";
 
-// actions/captureEmail.ts — salaryfact.com
+// actions/captureEmail.ts (salaryfact.com)
 
 import { createClient } from "@supabase/supabase-js";
 
